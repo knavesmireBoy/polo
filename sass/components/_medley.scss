@@ -1,0 +1,342 @@
+#medley {
+  background: white;
+  article li {
+    list-style-position: inside;
+    padding-left: 0.8em;
+    text-indent: -0.8em;
+  }
+}
+#presslinks {
+  article {
+    margin: 0;
+    grid-template-columns: repeat(3, 1fr);
+    nav {
+      margin: 0 1em 1em;
+      ul {
+        line-height: 1.3;
+        text-indent: -1.7em;
+        padding: 0 0 0 0;
+        li {
+          list-style-position: inside;
+          &:nth-child(odd) a:link {
+            color: #900;
+            &:hover {
+              color: #306;
+            }
+          }
+          &:nth-child(even) {
+            a {
+              &:link {
+                color: #306;
+              }
+              &:hover {
+                color: #900;
+              }
+            }
+          }
+          &:before {
+            content: "";
+            display: inline-block;
+            position: relative;
+            top: 0.5em;
+            width: 1.2em;
+            height: 1.5em;
+            margin-right: 0.5em;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url(../images/dev/pdf_sq.png);
+            border: solid 1px #444;
+            @include prefix(background-size, cover, ms moz o webkit);
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  img {
+    @include hide(-99em);
+  }
+}
+
+#tvcoverage {
+  display: block;
+  > h3 {
+    @include hide;
+
+    .js & {
+      @include show;
+    }
+  }
+  &.active article {
+    display: grid;
+    @include show;
+
+    iframe,
+    video {
+      margin: 0;
+      width: 100%;
+      height: auto;
+      @include show;
+    }
+  }
+   article > video {
+    @include hide(-99em);
+  }
+}
+#medley_links {
+  article {
+    @include flexy(wrap);
+    align-items: start;
+    column-gap: 0.5em;
+    h3 {
+      @include flex(1, 1, 100%);
+      order: 1;
+    }
+
+    p {
+      line-height: 1.3;
+      text-align: left;
+      @include flex(1, 1, 100%);
+      order: 4;
+    }
+    nav {
+      @include flex(4, 1, 1em);
+      order: 2;
+      margin-left: 0.8em;
+      ul {
+        line-height: 1.2;
+        text-indent: 0;
+        padding: 0;
+        li {
+          margin: 0.75em 0;
+
+          &:before {
+            content: "» ";
+          }
+        }
+      }
+    }
+    img {
+      @include flex(1, 1, 4em);
+      width: 1%;
+      order: 3;
+    }
+    p {
+      text-align: left;
+    }
+  }
+}
+
+.no-js #medley_links {
+  display: grid;
+  column-gap: 0.5em;
+  grid-template-columns: repeat(7, 1fr);
+  label {
+    grid-row: 1/2;
+    grid-column: span 7;
+  }
+  article {
+    display: block;
+    grid-row: 2/3;
+    grid-column: span 5;
+    p {
+      margin: 0;
+    }
+  }
+  img {
+    grid-column: 6/8;
+  }
+}
+
+/*aligns subsequent lines*/
+
+#presslinks ul {
+  line-height: 1.6;
+  li {
+    text-indent: -1.7em;
+    padding-left: 1.7em;
+  }
+}
+/*for older safari..*/
+#presslinks li:nth-child(odd) a:visited,
+#medley_links li:nth-child(odd) a:visited {
+  color: #900;
+}
+
+#presslinks {
+  article {
+    nav {
+      ul {
+        li:first-child:before {
+          background-image: url(../images/dev/prne.png);
+          @include prefix(background-size, cover, ms moz o webkit);
+        }
+        li:nth-child(4):before {
+          background-image: url(../images/dev/laureus.png);
+          @include prefix(background-size, cover, ms moz o webkit);
+        }
+        li:nth-child(6):before {
+          background-image: url(../images/dev/bd-logo.png);
+          @include prefix(background-size, contain, ms moz o webkit);
+        }
+        li:nth-child(7):before {
+          background-image: url(../images/dev/poloplus.png);
+          @include prefix(background-size, contain, ms moz o webkit);
+        }
+        li:nth-child(8):before {
+          background-image: url(../images/dev/p5.jpg);
+          @include prefix(background-size, cover, ms moz o webkit);
+        }
+      }
+    }
+  }
+}
+
+section#tvcoverage {
+  article h3 {
+    @include hide;
+  }
+}
+
+@media only screen and (min-width: $mobilepx) {
+  #medley {
+    header+h2 {
+      background-color: hsl(340, 65%, 50%);
+      background-color: #9b72d5;
+      span {
+        background-image: url(../images/dev/sub_medley.png);
+      }
+    }
+  }
+
+  #tvcoverage {
+    a:link,
+    a:visited {
+      color: $h2;
+    }
+    a:hover,
+    a:active {
+      color: $articlehead;
+    }
+    article {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: auto auto 1fr;
+      align-items: start;
+      gap: 1em;
+      margin: 0 0 1em;
+      padding: 0 0 1em;
+      border-width: 0;
+      border-image-width: 0;
+      border-bottom: dotted olive 1px;
+      &:first-of-type {
+        margin: 1em 0;
+      }
+      &:last-of-type {
+        margin: 0;
+        border-width: 0;
+      }
+      video {
+        grid-column: 6/8;
+        grid-row: span 3;
+        outline: solid 1px white;
+        @include show;
+      }
+      p {
+        margin: 0;
+        grid-row: 1/2;
+        grid-column: 1/6;
+        + p {
+          grid-row: 2/3;
+        }
+      }
+    }
+  }
+
+  #tvcoverage h3,
+  #presslinks img {
+    @include show;
+  }
+
+  .override #medley_links {
+    @include flexy;
+    align-items: start;
+    column-gap: 2em;
+    article {
+      @include flex(6, 1, 1em);
+    }
+    img {
+      @include flex(1, 1, 1em);
+      width: 1%;
+    }
+  }
+  #medley {
+    #presslinks {
+      @include flexy;
+      align-items: start;
+      article {
+        @include flex(3, 1, 1em);
+      }
+      li {
+        margin: 0;
+      }
+      > img {
+        @include flex(1, 1, 1em);
+        width: 1%;
+      }
+    }
+    section#tvcoverage {
+      background-image: url(../images/dev/swirl.png);
+      background-repeat: repeat;
+      background-size: 5%;
+      background-color: hsl(0, 0%, 15%);
+      background-color: hsl(120, 100%, 10%);
+      padding: 1em;
+      h3:first-of-type a,
+      p {
+        color: white;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1260px) {
+  section#tvcoverage {
+    display: block;
+  }
+
+  .js #medley {
+    #medley_links,
+    #tvcoverage {
+      p:after,
+      p:before {
+        content: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 357px) {
+  #medley {
+    section:nth-child(4) {
+      h3,
+      label {
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #medley {
+    #tvcoverage,
+    section:nth-child(5) {
+      h3,
+      label {
+        line-height: 1.2;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+$maine: rgb(244, 245, 204);
+$maine: rgb(238, 245, 204);
+$nav: hsl(270, 100%, 20%);
+$navho: hsl(60, 25%, 62%);
+$navbg: hsl(265, 54%, 64%);
+$navbgho: hsl(60, 25%, 52%);
+$bodyfont: 400 0.8em "Merriweather", "Trebuchet MS", sans-serif;
+$navfontfam: "Bree Serif", Verdana, sans-serif;
+$actionfont: "Montserrat", Verdana, sans-serif;
+$current: #900;
+
+$admin: hsl(334, 64%, 47%);
+$adminbg: hsl(270, 100%, 20%);
+$adminbg: rgba(255,255,255, .9);
+$adminhi: hsl(211, 79%, 60%);
+$fieldset: navy;
+$pale: rgba(27, 33, 33, 0.1);
+$pale: rgba(205, 232, 248, 0.4);
+$logo: rgb(192, 58, 117);
+$dusk: rgba(27, 33, 33, 0.77);
+$logo: $current;
+$link: hsl(62, 80%, 28%);
+$h2: hsl(58, 60%, 48%);
+$linkhover: brown;
+$articleheadactive: $link;
+$articlehead: hsl(64, 40%, 85%);
+$gray: hsl(0, 0%, 25%);
+$hi: rgba(254, 240, 55, 1);
+$hi: lavender;
+$sky: rgb(89, 7, 107);
+$alphasky: rgba(89, 7, 107, .77);
+$skyblue: rgba(30, 142, 241, 0.5);
+
+$serif: Georgia;
+$place: "100px" "200px";
+
+$filenotfound: url(../images/dev/lost.png);
+$lost: url(../images/dev/lost.png);
+$notfoundimage: url(../images/gallery/notfound.png);
+$unassigned: url(../images/gallery/unassigned.png);
+
+$mobilepx: '751px';
+$superpx: '1260px';
+$navlist: (
+  #home,
+  #trust,
+  #scholars,
+  #place,
+  #stay,
+  #polo,
+  #medley,
+  #enquiries,
+  #photos,
+  #bond
+);

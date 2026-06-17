@@ -1,0 +1,14 @@
+
+#stay {
+  background: white;
+}
+@media only screen and (min-width: $mobilepx) {
+  #stay {
+    h2 {
+      background-color: hsl(7, 75%, 45%);
+      span {
+        background: transparent 0% 0% url(../images/dev/sub_stay.png) no-repeat;
+      }
+    }
+  }
+}

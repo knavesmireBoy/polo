@@ -1,0 +1,386 @@
+/*.touchevents replaces media queries (hover: hover) || (pointer: fine) where support is doubtful
+logic dictates that we only get to this point courtesy of javascript so modernizr supplies the className .(no-)touchevents */
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 20 version
+ https://www.smashingmagazine.com/2019/02/css-browser-support/ 
+https://github.com/philipwalton/solved-by-flexbox/blob/master/assets/css/components/site.css 
+https://github.com/philipwalton/flexbugs
+*/
+
+.inplay #paused {
+  opacity: 0.5;
+}
+ul#thumbnails.preload li {
+  display: none;
+}
+
+#slide,
+#paused,
+#base {
+  display: block;
+  opacity: 1;
+  border-width: 0;
+}
+
+.touchevents {
+  #photos.inplay {
+    #controls {
+      top: 2.4em;
+      opacity: 1;
+    }
+    main .pagenav {
+      margin: 0 2%;
+    }
+    footer {
+      margin-top: -5em;
+    }
+  }
+}
+
+.no-touchevents {
+  button#forwardbutton:hover {
+    background-position: 50% 56%;
+  }
+  button#backbutton:hover {
+    background-position: 50% 70.5%;
+  }
+  button#playbutton:hover {
+    background-position: 50% 85%;
+  }
+  .playing button#playbutton:hover {
+    background-position: 50% 100%;
+  }
+}
+
+#preload {
+  display: none;
+}
+
+@mixin button() {
+  background-image: url(../images/dev/buttons_sprite.png);
+  background-color: hsla(75, 50%, 40%, 0.3);
+  background-size: 128%;
+}
+
+#photos {
+  main {
+    position: relative;
+    padding: 3em 0 0 0;
+    @include flexy;
+    text-align: center;
+    align-items: center;
+    .pagenav {
+      position: relative;
+      margin: 1px;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      @include flex(1, 1, 1.5em);
+      &:hover,
+      &:focus {
+        border-right-color: royalblue;
+      }
+      &#gal_back {
+        border-right: 31px solid crimson;
+      }
+      &#gal_forward {
+        border-left: 31px solid crimson;
+      }
+    }
+  }
+  .touchevents & main {
+    align-items: stretch;
+    .pagenav {
+      border-top: 0 solid transparent;
+      border-bottom: 0 solid transparent;
+      background-color: crimson;
+      @include flexy;
+      flex-direction: column;
+      span {
+        height: 33%;
+        width: 100%;
+        margin: auto;
+        background-color: whitesmoke;
+      }
+      &#gal_back {
+        border-right: 0 solid crimson;
+        /*animation: myright 5s infinite;*/
+      }
+      &#gal_forward {
+        border-left: 0 solid crimson;
+        /*animation: myleft 5s infinite;*/
+      }
+    }
+  }
+  .js & #enable-js {
+    @include hide;
+  }
+}
+#photos {
+  &.showtime main {
+    display: block;
+    padding: 0;
+    margin: -2em 0 0;
+    margin: 0;
+  }
+
+  footer {
+    padding: 0%;
+    margin: 0 auto;
+    border-width: 0px;
+    ul > * {
+      @include prefix(transition, all 1s, moz o webkit);
+      opacity: 1;
+    }
+  }
+  &.showtime footer {
+    margin-top: 0%;
+  }
+  #controls {
+    position: relative;
+    font-size: 20px;
+    font-size: calc(14 + 6 * ((100vw - 320px) / (1280 - 320)));
+    margin: 0 auto;
+    @include prefix(transition, all 1s, moz o webkit);
+    top: 0em;
+    z-index: 2;
+    opacity: 0;
+    display: table;
+    /* horizontal <length> | vertical <length> */
+    border-spacing: 0.5em 0;
+    form.button {
+      display: table-cell;
+      button {
+        @include button();
+        width: 1.75em;
+        height: 1.75em;
+        display: block;
+        padding: 0;
+      }
+    }
+    &.static {
+      top: -3em;
+      opacity: 1;
+    }
+  }
+  #exit {
+    width: 36px;
+    height: 36px;
+    top: 0;
+    left: calc(100% - 52px);
+    margin: 1em 0 0;
+    display: block;
+    position: relative;
+    line-height: 1;
+    border: 0px;
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    background-image: url(../images/dev/sticks_sprite_fat.png);
+    background-size: 100%;
+    box-sizing: border-box;
+    &:hover,
+    &:focus {
+      background-position: 50% 106%;
+    }
+  }
+  &.inplay #exit {
+    position: absolute;
+    background-position: 50% 106%;
+    z-index: 2;
+    &:hover {
+      background-position: 50% 0%;
+    }
+  }
+} //photos
+
+ul#thumbnails {
+  li {
+    display: block;
+    a:link {
+      display: block;
+      width: 100%;
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+
+#hollywood img,
+#hollywood a:link {
+  display: block;
+  width: 100%;
+}
+
+ul#thumbnails,
+div#hollywood {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 0.9375em;
+  font-size: 1em;
+  text-align: center;
+  padding: 1em;
+  border-width: 0;
+  width: 79.4%;
+  /*https://stackoverflow.com/questions/1823551/what-is-this-ie-css-bug-called-double-vertical-padding*/
+  @include prefix(transition, width 1s ease-in-out, moz o webkit);
+  a:link {
+    &,
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  &.portrait {
+    width: 60%;
+  }
+  .inplay & {
+    width: 100%;
+  }
+  .touchevents .showtime & {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+ul.gallery {
+  display: grid;
+  gap: 0.5em;
+  padding: 0.5em;
+  grid-template-columns: repeat(12, 1fr);
+  @include flex(10, 1, 50%);
+  li:nth-child(-n + 2) {
+    grid-row: 1 / 2;
+    grid-column: auto / span 6;
+  }
+  li:nth-child(n + 3) {
+    grid-row: 2 / 3;
+    grid-column: auto / span 6;
+  }
+  li:nth-child(n + 5) {
+    grid-row: 3 / 4;
+    grid-column: auto / span 4;
+  }
+  li:nth-child(n + 8) {
+    grid-row: 4 / 5;
+    grid-column: auto / span 4;
+  }
+  li:nth-child(n + 11) {
+    grid-row: 5 / 6;
+    grid-column: auto / span 6;
+  }
+  li:nth-child(n + 13) {
+    grid-row: 6 / 7;
+    grid-column: auto / span 6;
+  }
+  &.alt {
+    li {
+      grid-column: auto / span 6;
+
+      &:nth-child(n + 7) {
+        grid-row: 4 / 5;
+      }
+      &:nth-child(n + 9) {
+        grid-row: 5 / 6;
+      }
+
+      &:nth-child(n + 11) {
+        grid-row: 6 / 7;
+      }
+    }
+  }
+}
+@media only screen and (min-width: $mobilepx) {
+  @supports (column-gap: 20px) {
+    ul.gallery {
+      li:nth-child(-n + 4) {
+        grid-row: 1 / 2;
+        grid-column: auto / span 3;
+      }
+      li:nth-child(n + 5) {
+        grid-row: 2 / 3;
+        grid-column: auto / span 2;
+      }
+      li:nth-child(n + 11) {
+        grid-row: 3 / 4;
+        grid-column: auto / span 3;
+      }
+      &.alt {
+        li:nth-child(n + 5) {
+          grid-row: 2 / 3;
+          grid-column: auto / span 3;
+        }
+        li:nth-child(n + 9) {
+          grid-row: 3 / 4;
+          grid-column: auto / span 3;
+        }
+      }
+    }
+  }
+  #photos {
+    h2 {
+      background-color: rgb(77, 76, 76);
+    }
+    footer {
+      margin-top: 4em;
+      background-image: url(../images/dev/tear3.png),
+        url(../images/dev/swirl.png);
+    }
+
+    &.showtime .pagenav {
+      @include hide;
+    }
+    h2:nth-child(n + 1) {
+      span {
+        text-align: center;
+        text-indent: 0;
+        background-image: none;
+        padding: 0;
+      }
+    }
+    .touchevents & {
+      main {
+        align-items: center;
+        .pagenav {
+          border-top: 20px solid transparent;
+          border-bottom: 20px solid transparent;
+          background-color: white;
+          display: block;
+          &#gal_back {
+            border-right: 31px solid crimson;
+          }
+          &#gal_forward {
+            border-left: 31px solid crimson;
+          }
+        }
+      }
+    }
+  }
+  //outside of photos for specificity reasons, there is only one hollywood
+  .showtime div#hollywood {
+    width: 79.4%;
+  }
+  .showtime div#hollywood.portrait {
+    width: 40%;
+  }
+
+  #photos.inplay #exit {
+    position: relative;
+  }
+}
+.touchevents #photos.inplay {
+  background-color: rgb(22, 22, 22);
+
+  header,
+  h2 {
+    opacity: 0.1;
+  }
+  footer {
+    opacity: 0.1;
+    background-image: none;
+  }
+}

@@ -1,0 +1,512 @@
+#admin {
+
+ header +  h2 {
+    span {
+      text-indent: none;
+      padding: 0;
+    }
+  }
+  main {
+    .adminlist {
+      //https://web.dev/articles/min-max-clamp#:~:text=You%20could%20break%20this%20up,to%20set%20a%20maximum%20width.
+
+      margin: auto clamp(1px, 20%, 300px);
+      margin: 0;
+
+      &.dual {
+        li {
+          @include flexy;
+          @include flex_sp_bt;
+          align-items: center;
+          &:first-child,
+          &:last-child {
+            a:nth-child(odd) {
+              background-color: transparent;
+              border-width: 0;
+            }
+          }
+          a {
+            margin: 0 1em 0 0;
+            &:last-child {
+              border-radius: 8px;
+              padding: 2px 4px;
+              margin: 0;
+            }
+            &:hover {
+              color: $dusk;
+            }
+            &.pdf_file {
+              background-color: rgb(251, 239, 239) !important;
+            }
+            &.trash {
+              @include trash(25px);
+              &:hover {
+                color: $hi;
+                background-color: darken($admin, 15%);
+              }
+            }
+          }
+          &.notfound {
+            @include flexy;
+            @include flex(0,1,22em);
+            flex-direction: column;
+            a:first-child {
+              width: 100%;
+              height: 0;
+              padding: 0; /* reset */
+              padding-bottom: calc(100% * 2 / 3);
+              margin: 0 0 -1.8em;
+              img {
+                filter: invert(.5);
+              }
+            }
+          }
+          &.pdfnotfound {
+            @include flexy;
+            flex-direction: column;
+            color: white;
+            a.thumb.pdf_file {
+              background-color: red !important;
+              width: 100%;
+              height: 0;
+              padding: 0; /* reset */
+              margin: 0 0 -2.9em;
+              background-image: none;
+              padding-bottom: calc(100% * 1);
+            }
+          }
+          &.submit:last-child {
+            @include flex_center;
+            text-transform: lowercase;
+            justify-content: center;
+          }
+        }
+
+        input[type="submit"] {
+          color: white;
+          border-width: 0;
+          border-radius: 8px;
+          padding: 2px 4px;
+          &:hover {
+            color: $hi;
+            background-color: darken($admin, 15%);
+          }
+        }
+       
+      }
+
+      &.asset {
+        @include flexy();
+        column-gap: 0.1em;
+        justify-content: space-around;
+        background-color: $skyblue;
+        background-color: rgba(30, 142, 241, 0.5);
+        border-radius: 8px;
+        padding: 0.5em;
+        box-shadow: 0 0 5px 1px white;
+        li {
+          margin: auto;
+          justify-content: end;
+          max-width: 80%;
+          min-width: 1em;
+          a.thumb {
+            display: block;
+            border: solid 1px blue;
+            border-radius: 4px;
+            overflow: hidden;
+            //padding: 1px;
+            //background-color: blue;
+            @include flex(1, 1, 1em);
+            &:hover {
+              filter: sepia(0.5);
+            }
+            img {
+              width: 100%;
+              height: auto;
+              display: block;
+              border-radius: 4px;
+            }
+          }
+
+          a.pdf_file {
+            border: solid 1px red !important;
+            max-width: 5.5rem;
+          }
+          a.trash {
+            @include trash(25px);
+            align-self: flex-end;
+            background-color: transparent;
+            border-radius: 60%;
+            z-index: 2;
+            margin-left: -25px;
+          }
+          > a {
+            margin: 0;
+          }
+          > a + a,
+          input[type="submit"] {
+            color: white;
+            border-width: 0;
+            border-radius: 8px;
+            padding: 2px 4px;
+            &:hover {
+              color: $hi;
+              background-color: darken($admin, 15%);
+            }
+          }
+        }
+      } //asset
+    }
+
+    .pp {
+      border: solid 1px black;
+      @include flexy;
+      justify-content: space-between;
+      align-content: center;
+      border: solid 1px;
+      margin: 0 auto;
+      background-color: $adminbg;
+      border-radius: 8px;
+      padding: 0.3em;
+      .active {
+        color: hsl(0, 0%, 36%);
+      }
+      > * {
+        align-self: center;
+      }
+      li {
+        > * {
+          padding: 4px;
+        }
+        li span {
+          font-weight: bold;
+        }
+        a {
+          display: block;
+          border: solid 1px gainsboro;
+          padding: 2px 7px;
+          border-radius: 50%;
+          &:link,
+          &:visited {
+            color: gray;
+          }
+          &:hover,
+          &:active {
+            color: royalblue;
+          }
+        }
+        &.active {
+          span {
+            display: block;
+            border: solid 1px royalblue;
+            padding: 2px 7px;
+            border-radius: 50%;
+            color: $admin;
+            font-weight: bold;
+          }
+        }
+        &:last-of-type a {
+          @include nav(25px, center 90%);
+          &:hover {
+            background-color: royalblue;
+          }
+        }
+        &:first-of-type a {
+          @include nav(25px, center 0%);
+          &:hover {
+            background-color: royalblue;
+          }
+        }
+      }
+    }
+
+    div.edit_asset {
+      margin: 0 auto;
+      border: solid 1px;
+      border-radius: 8px;
+      padding: 0.5em 1em;
+      background-color: rgba(255, 255, 255, 0.5);
+      #usage,
+      #info {
+        @include hide;
+      }
+      > label {
+        display: block;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        width: 100%;
+        color: white;
+        background-color: darken($sky, 10%);
+        &:hover {
+          background-color: $sky;
+          color: $admin;
+        }
+      }
+      > #usage:checked ~ #info {
+        @include show;
+      }
+      &.replace {
+        background-color: rgba(55, 0, 180, 0.5);
+        h5 {
+          color: white;
+        }
+      }
+    }
+
+    div#edit_page fieldset {
+      #order {
+        @include flexy;
+        column-gap: 0.5em;
+
+        label {
+          @include flex(1, 1, 1em);
+        }
+        input {
+          @include flex(4, 1, 2em);
+          height: 100%;
+        }
+        #shuffle {
+          @include flex(0, 0, 1em);
+          align-self: flex-end;
+        }
+      }
+    }
+
+    form.edit.box fieldset {
+      #list {
+        border-radius: 2px;
+      }
+      #path,
+      #alt,
+      #list {
+        grid-column: 2/31;
+        //width: 100%;
+      }
+      #box {
+        grid-column: 2/30;
+      }
+      #date,
+      label[for="date"] {
+        display: none;
+      }
+      #shuffle {
+        border-radius: 8px;
+        background-color: $admin;
+        text-align: center;
+        padding: 0 1em;
+        line-height: 1.7;
+        grid-column: span 1;
+        @include flexy;
+        justify-content: center;
+        background-color: $admin;
+        border-radius: 8px;
+        input[type="checkbox"] {
+          padding: 0;
+          margin: auto;
+        }
+      }
+    }
+  } //main
+} //#
+
+@media only screen and (min-width: 431px) {
+  #admin {
+    main {
+      form.register fieldset,
+      form.registered fieldset,
+      form.details fieldset,
+      > form.edit fieldset {
+        // DIRECT for "USER" forms
+        grid-template-columns: 6em auto;
+        label {
+          grid-column: 1/2;
+        }
+        input {
+          grid-column: 2/3;
+        }
+      }
+      div.edit_asset > form {
+        fieldset {
+          input,
+          select {
+            grid-column: 2/41;
+          }
+        }
+        &.assign {
+          label[for="assign"] {
+            grid-column: 38/40;
+          }
+          #attr_id {
+            grid-column: 2/38;
+          }
+          #assign {
+            grid-column: 40/41;
+            align-self: flex-end;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 574px) {
+  #admin main {
+    form.edit.box fieldset {
+      label,
+      #shuffle {
+        grid-row: 1/2;
+      }
+      #path,
+      #list {
+        grid-column: 2/20;
+        grid-row: 1/2;
+      }
+      #box {
+        grid-row: 1/2;
+        grid-column: 21/30;
+      }
+      label[for="alt"],
+      #alt {
+        grid-row: 2/3;
+      }
+
+      label[for="box"] {
+        grid-row: 1/2;
+        grid-column: 20/21;
+      }
+      #shuffle {
+        grid-column: 30/31;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobilepx) {
+  #admin {
+    main {
+      div.edit_asset {
+        > form {
+          fieldset {
+            #path {
+              grid-column: 2/30;
+              grid-row: 1/2;
+            }
+            label[for="path"] {
+              grid-row: 1/2;
+              grid-column: 1/2;
+            }
+
+            #alt {
+              grid-column: 2/41;
+              grid-row: 2/3;
+            }
+            label[for="alt"] {
+              grid-row: 2/3;
+            }
+            label[for="attr_id"] {
+              grid-column: 30/32;
+              grid-row: 1/2;
+            }
+            #attr_id {
+              grid-column: 32/41;
+              grid-row: 1/2;
+            }
+          }
+          &.assign {
+
+            #alt {
+              grid-column: 2/38;
+              width: 100%;
+            }
+
+            #attr_id {
+              grid-column: 32/41;
+            }
+   
+            label[for="assign"], #assign  {
+              grid-row: 2/3;
+            }
+          }
+        }
+
+        &.pdf {
+          form {
+            fieldset {
+              #path {
+                grid-row: 1/2;
+                grid-column: 2/20;
+              }
+              label[for="path"] {
+                grid-column: 1/2;
+                grid-row: 1/2;
+              }
+              #alt {
+                grid-column: 22/41;
+                grid-row: 1/2;
+              }
+              label[for="alt"] {
+                grid-column: 20/22;
+                grid-row: 1/2;
+              }
+              label[for="attr_id"] {
+                grid-column: 1/2;
+                grid-row: 2/3;
+              }
+              #attr_id {
+                grid-column: 2/41;
+                grid-row: 2/3;
+              }
+            }
+            &.assign {
+              #attr_id {
+                grid-column: 2/38;
+              }
+            }
+          }
+        }
+      }
+
+      > form.edit fieldset {
+        @include flexy;
+        label {
+          @include flex(1, 1, 1em);
+        }
+        input {
+          @include flex(5, 1, 1em);
+        }
+      }
+
+      ul.adminlist.asset li {
+        max-width: 40%;
+      }
+    }
+    footer {
+      @include flex(1, 0, 10em);
+    }
+  }
+}
+
+@media only screen and (min-width: 888px) {
+  #admin main {
+    padding: 0.5em 15%;
+
+    form.edit.box fieldset {
+      @include flexy;
+      #list {
+        width: auto;
+      }
+      label {
+        @include flex(1, 1, 1rem);
+      }
+      #shuffle {
+        max-width: 3rem;
+      }
+      input {
+        @include flex(8, 1, 1rem);
+      }
+      input#box {
+        @include flex(1, 1, 1rem);
+      }
+    }
+  }
+}

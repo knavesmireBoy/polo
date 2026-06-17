@@ -1,0 +1,115 @@
+#photos {
+  background: white;
+
+  #thumbnails,
+  #hollywood,
+  ul#thumbnails a,
+  #base {
+    border: 1px solid;
+  }
+  #slide {
+    border: 0 solid;
+  }
+  #controls button {
+    cursor: pointer;
+    background-color: #556b2f;
+    border: 1px solid hsla(75, 50%, 40%, 1);
+    border-radius: 0.2em;
+    -webkit-box-shadow: 2px 2px 4px black;
+    box-shadow: 2px 2px 4px black;
+    text-shadow: 1px 1px 1px black;
+    line-height: 1.6;
+    opacity: 1;
+    background-image: url(../assets/buttons_sprite_lowend8.png);
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    > button {
+      background-image: url(../assets/buttons_sprite_lowend.png);
+      background-color: hsla(50, 50%, 40%, 0.3);
+    }
+  }
+  ul#thumbnails,
+  div#hollywood {
+    border-color: #9c0;
+    a:link,
+    a:visited {
+      border-color: black;
+    }
+    a:hover,
+    a:active {
+      border-color: $current;
+    }
+
+    li.missing {
+      display: inline-block;
+      vertical-align: top;
+      &.portrait {
+        
+      }
+      & a {
+        display: block;
+        width: 100%;
+          background-image: $notfoundimage;
+          background-position: center;
+          background-size: cover;
+          background-color: orangered;
+          background-repeat: no-repeat;
+          height: 0;
+          padding: 0; /* reset */
+          padding-bottom: calc(100% * 2 / 3);
+          font-size: .5em;
+        &:hover {
+          border-color: crimson;
+        }
+        & img {
+          border-radius: 7px;
+        }
+      }
+      &.missing {
+        @include flexy;
+        flex-direction: column;   
+        a {
+           
+        }
+        &.unassigned a {
+          background-image: $unassigned;
+          background-color: slategrey;
+        }
+        &.portrait a {
+          padding-bottom: calc(100% * 1.48);
+        }
+      }
+    }
+
+
+  }
+
+  ul#thumbnails.gallery img {
+    @include prefix(animation, fadefromgrey 1s ease-out, moz webkit);
+  }
+  .done ul#thumbnails.gallery img {
+    @include prefix(animation, fadefromgrey 0s ease-out, moz webkit);
+  }
+  #controls.static button {
+    border: 1px solid #fff;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+  }
+  #controls button:hover,
+  #controls button:focus {
+    background-color: silver;
+    background-color: rgba(150, 150, 150, 0.5);
+    color: black;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+  }
+
+  button#backbutton {
+    background-position: 50% 14.5%;
+  }
+  button#playbutton {
+    background-position: 50% 29%;
+  }
+  .playing #playbutton {
+    background-position: 50% 44%;
+    opacity: 0.9;
+  }
+}

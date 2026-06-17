@@ -1,0 +1,156 @@
+#ani,
+#tween {
+  width: 18em;
+  height: auto;
+  padding: 2em;
+  margin: -3em -2em 0 0;
+}
+
+#ani {
+  position: absolute;
+  left: -999px;
+}
+
+#tween {
+  @include flex(1, 1, 1%);
+  border-width: 0;
+  box-shadow: none;
+  position: relative;
+}
+
+#home #ani img {
+  width: 100%;
+  float: left;
+  display: inline;
+  box-shadow: none;
+  border-width: 0;
+  margin: 0;
+}
+
+#ani.paused {
+  filter: saturate(0);
+}
+
+.no-js #tween,
+#ani {
+  float: right;
+}
+
+.js #flower {
+  @include show;
+}
+
+#home #ani img + img {
+  margin: 0 0 0 -100%;
+}
+/* test float
+.wrap p {
+    font-size: 1.3em;
+    color: red;
+}
+*/
+
+#home {
+  background: white;
+  section:last-child {
+    article {
+      @include flex(8, 1, 1em);
+    }
+    img#tween {
+      float: right;
+      margin: 1em;
+      box-shadow: none;
+      border-radius: 0;
+    }
+  }
+  .active #ani,
+  .read-more-state:checked ~ #tween {
+    @include show;
+    z-index: 1;
+  }
+}
+#bond {
+  background: white;
+}
+
+@media screen and (max-width: 426px) {
+  #home {
+    section:nth-child(2) {
+      h3,
+      label {
+        line-height: 1.2;
+      }
+    }
+  }
+}
+@media screen and (max-width: 633px) {
+  #home {
+    section:nth-child(3) {
+      h3,
+      label {
+        line-height: 1.2;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #ani {
+    width: 14em;
+    padding: 1.6em 1.6em 0;
+  }
+}
+#ani,
+#tween {
+  width: 9em;
+  height: auto;
+  margin: 0;
+  padding: 0.5em;
+}
+
+@media only screen and (max-width: 510px) /*,
+  (not(-ms-high-contrast: active)),
+  (not (-ms-high-contrast: none)) */ {
+  #home {
+    section:last-child h3,
+    section:last-child label {
+      line-height: 1.2;
+    }
+  }
+}
+@media only screen and (max-width: 425px) /*,
+  (not(-ms-high-contrast: active)),
+  (not (-ms-high-contrast: none)) */ {
+  #home {
+    section:first-child h3,
+    section:first-child label {
+      line-height: 1.2;
+    }
+  }
+}
+
+@media only screen and (max-width: 322px) {
+  #home {
+    section:nth-child(2) h3,
+    section:nth-child(2) label {
+      line-height: 1.2;
+    }
+  }
+}
+@media screen and (min-width: $mobilepx) {
+  #ani {
+    margin: -1em 0 1em 2em;
+    width: 10em;
+    @include show;
+    z-index: 2;
+  }
+
+  #home {
+    h2 {
+      background-color: hsl(15, 100%, 10%);
+      span {
+        background: transparent 0% 50% url(../images/dev/sub_home.png) no-repeat;
+      }
+    }
+  }
+}

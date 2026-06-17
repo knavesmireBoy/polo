@@ -1,0 +1,245 @@
+#admin {
+  @include flexy;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
+  > header {
+    background-color: lighten($adminhi, 10%);
+    @include flex(1, 0, 1em);
+  }
+  h2:nth-of-type(1) {
+    background-image: none;
+    background-color: rgb(89, 7, 107);
+    margin: 0 0 1em;
+    font-size: 1rem;
+    text-shadow: none;
+    text-align: center;
+    @include flex(0, 0, 1em);
+
+    span:first-child {
+      color: white;
+      background-color: transparent;
+      width: 100%;
+      background-image: none;
+      width: auto;
+      text-indent: 0;
+      text-align: center;
+      font-size: 1.4em;
+    }
+  }
+
+  main {
+    @include flex(5, 0, auto);
+    padding: 0.5em;
+    margin: 0;
+    font: .875rem "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    p {
+      text-align: center;
+      line-height: 1.2;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: $nav;
+    }
+
+    > a:link,
+    > a:visited,
+    p a {
+      color: $current;
+      font-weight: bold;
+    }
+    > a:hover,
+    > a:active,
+    p a:hover,
+    p a:active {
+      color: $dusk;
+    }
+
+    h5 {
+      font-size: 0.85rem;
+      margin: 0.2em 0;
+      color: $admin;
+      a {
+        color: inherit;
+      }
+    }
+
+    ul.adminlist {
+      font-size: 1.05rem;
+      li,
+      & ul {
+        border-radius: 8px;
+        padding: 0.15em;
+        margin: 0.2em 0;
+        background-color: $adminbg;
+        color: white;
+        white-space: nowrap;
+        a {
+          color: $admin;
+          &:hover {
+            color: darken($admin, 15%);
+          }
+        }
+        label {
+          color: $admin;
+        }
+      }
+    } //list
+    h3 {
+      color: $admin;
+      font-size: 1.75em;
+      word-spacing: -1px;
+      font-family: $actionfont;
+      text-transform: uppercase;
+      background-color: $adminbg;
+      border-radius: 8px;
+      text-indent: 11px;
+      margin: 0.2em 0;
+      a {
+        color: $admin;
+      }
+    }
+    form {
+      border: solid 1px black;
+      border-radius: 8px;
+      padding: 8px;
+      margin: 0.3em 0;
+      > fieldset {
+        display: grid;
+        gap: 0.5em;
+        border-width: 0;
+        text-align: left;
+        margin: 0 0 0.5em;
+        background-color: $adminbg;
+        padding: 8px;
+        border-radius: 8px;
+        label {
+          text-align: center;
+          color: $dusk;
+          color: $admin;
+          background-color: $pale;
+          border-radius: 4px;
+          padding: 0.3em;
+          width: 100%;
+          border: solid 1px gray;
+        }
+        select#path {
+          border: 1px solid;
+          background-color: $pale;
+          width: 100%;
+        }
+        input {
+          padding: 0.2em 0.6em;
+          border-radius: 8px;
+          border: 1px solid silver;
+          padding: 2px;
+        }
+      }
+      input[type="submit"] {
+        color: white;
+        background-color: $admin;
+        border-width: 0;
+        border-radius: 8px;
+        padding: 2px 4px;
+        &:hover {
+          color: $hi;
+          background-color: darken($admin, 15%);
+        }
+      }
+    }
+    .remplacer {
+      margin: 0.5em 0 0;
+      @include flexy();
+      justify-content: center;
+      a {
+        width: 2.25em;
+        height: 2.25em;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        border: solid 1px #666;
+        border-radius: 50%;
+        margin: 0 0.1em;
+        background: no-repeat $admin url(../assets/live/edit_back.png)
+          center/cover;
+        &#upload_link {
+          background: no-repeat $admin url(../assets/live/edit_upload.png)
+            center/cover;
+        }
+
+        &#edit_link {
+          background: no-repeat $admin url(../assets/live/edit_img_alt.png)
+            center/cover;
+        }
+        &.add {
+          background: no-repeat $admin url(../assets/live/add.png)
+            center/contain;
+        }
+        &.archived {
+          background: no-repeat $admin url(../assets/live/edit_archived.png)
+            center/contain;
+        }
+        &#upload_link:hover,
+        &#edit_link:hover {
+          background-color: blue;
+          filter: saturate(2);
+        }
+        &:hover {
+          background-color: $adminhi;
+        }
+      }
+    }
+    div.affirm {
+      display: block;
+      padding: 1em;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 8px;
+      p {
+        color: $hi;
+        a {
+          color: $adminhi;
+          text-decoration: underline;
+          &:hover {
+            color: $admin;
+          }
+        }
+        strong {
+          color: $admin;
+        }
+      }
+    }
+  }
+  footer {
+    @include flex(1, 0, 1em);
+    margin: 0;
+    position: relative;
+    background-color: hsla(276, 50%, 30%, 0.66);
+    background-blend-mode: multiply;
+    background-image: url(../images/dev/footer.png),
+      url(../images/dev/swirl.png);
+    background-repeat: no-repeat, repeat;
+    background-position: center top, center;
+    background-size: cover, 5%;
+    font-size: 8px;
+    border-top: solid 1px white;
+    height: auto;
+    * {
+      visibility: hidden !important;
+      display: none;
+    }
+  }
+}
+
+.js .autosub input[type="submit"] {
+  @include hide;
+}
+
+/*
+.edit fieldset {
+    display: grid;
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    padding: 0.2em;
+  }
+    */

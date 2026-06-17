@@ -1,0 +1,611 @@
+#admin {
+  main {
+    .uploadpreview {
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 8px;
+      padding: 0.5em;
+      gap: 1em;
+      margin: 1em 0 0;
+      #upload_guide {
+        padding: 0 1em 0.75em 1em;
+        background-color: $adminbg;
+        color: $admin;
+        border-radius: 8px;
+        @include flex(2, 1, 1rem);
+        header {
+          @include flexy;
+          justify-content: space-between;
+          align-items: end;
+        }
+        input {
+          @include hide;
+          &:checked + article {
+            @include show;
+          }
+        }
+        article {
+          @include hide;
+          p {
+            word-break: break-word;
+            text-align: left;
+            line-height: 1.1;
+          }
+        }
+        label {
+          display: block;
+          color: white;
+          width: 100%;
+          background-color: darken($sky, 3%);
+          border-radius: 4px;
+          margin: 0.125em auto;
+          padding: 0.1em 0;
+          &:hover {
+            color: $admin;
+          }
+          &:nth-child(odd) {
+            background-color: $sky;
+          }
+        }
+        h1 {
+          font-size: 1rem;
+        }
+      } //upload guide
+
+      form fieldset {
+        grid-template-columns: repeat(8, 1fr);
+        > label {
+          grid-column: span 1;
+        }
+        #alt,
+        #attr_id,
+        #uploadfile,
+        #box {
+          grid-column: span 7;
+        }
+        #uploadfile {
+          width: 100%;
+        }
+        #path {
+          grid-column: span 8;
+        }
+        #params {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 0.25em;
+          grid-column: span 8;
+          padding: 0.2em 0;
+          & > * {
+            grid-column: span 1;
+            margin: 0;
+          }
+          & input {
+            grid-column: span 2;
+          }
+        }
+      }
+
+      div.previews {
+        @include flexy(wrap);
+        @include flex(2, 1, 1rem);
+        justify-content: center;
+        column-gap: 0.5em;
+        border: solid 1px;
+        border-radius: 8px;
+        padding: 0.5em;
+        //order: 3;
+        figure {
+          @include flex(1, 1, 12em);
+          overflow: hidden;
+          a {
+            border: solid 1em white;
+            box-shadow: 0 0 3px black;
+            border-radius: 4px;
+            display: block;
+            overflow: hidden;
+            img {
+              width: 100%;
+              display: block;
+              border: solid 1px navy;
+            }
+          }
+          &.notfound {
+            @include flexy;
+            flex-direction: column;
+            box-sizing: content-box;
+            padding: 0.75em;
+            background: orangered;
+            justify-content: start;
+            align-self: flex-start;
+            font-size: 0.7em;
+            a {
+              border-width: 0;
+              background-image: $lost;
+              background-size: cover;
+              height: 0;
+              //https://css-tricks.com/scale-svg/
+              padding: 0; /* reset */
+              padding-bottom: calc(100% * 2 / 3);
+            }
+          }
+        }
+        .pdf {
+          a.notfound {
+            background-color: red !important;
+          }
+        }
+      }
+      &.gallery {
+        form {
+          fieldset {
+            grid-template-columns: repeat(9, 1fr);
+            legend {
+              display: none;
+            }
+            > * {
+              width: 100%;
+            }
+            #uploadfile {
+              grid-column: span 8;
+            }
+            #box {
+              grid-column: span 8;
+              width: 100%;
+            }
+            label {
+              grid-column: span 1;
+            }
+            #alt {
+              grid-column: span 8;
+            }
+
+            #params {
+              //grid-row: 4/5;
+              grid-column: span 9;
+            }
+          }
+        }
+      }
+      &.reloaded {
+        background-color: hsla(208, 88%, 53%, 0.5);
+      }
+      &.sansguide .previews figure.notfound {
+        font-size: 0.85em;
+      }
+    } //uploadpreview
+
+    ul.manage {
+      padding: 0;
+      line-height: 1.7;
+    }
+
+    form#retriever {
+      text-align: center;
+      margin: auto;
+      padding: 1em 15em;
+      > div {
+        color: black;
+        padding: 2px 5px;
+        border: solid 1px black;
+        border-radius: 5px;
+        @include flexy();
+        background-color: rgba(255, 255, 255, 0.4);
+        margin: 0.25em 0;
+        justify-content: center;
+        div:nth-child(2) {
+          label {
+            @include flex(4, 1, 4em);
+            padding: 0 1em;
+          }
+          input {
+            @include hide;
+            &:checked + label {
+              color: darken(red, 10%);
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    .orphans .adminlist {
+      @include flexy(wrap);
+      justify-content: center;
+      column-gap: 0.5em;
+      > li {
+        padding: 0;
+        overflow: hidden;
+        display: block;
+        margin: auto;
+        flex: 1 1 3em;
+        background-color: transparent;
+        max-width: 20em;
+
+        label {
+          display: block;
+          position: relative;
+          overflow: hidden;
+          padding: 0;
+          border-radius: 8px;
+          img {
+            width: 100%;
+            border-radius: 8px;
+            border: solid 1px white;
+          }
+        }
+        > input[type="checkbox"] {
+          @include hide;
+          &:checked + label {
+            &::after {
+              content: "trash";
+              display: block;
+              position: absolute;
+              right: 5px;
+              bottom: 5px;
+              border-radius: 50%;
+              @include trash(25px, "100% center", blue);
+            }
+          }
+        }
+        &.submit {
+          //background-color: $admin;
+          @include flex(0, 0, auto);
+        }
+      }
+      > ul {
+        margin: 0.5em 0;
+        @include flex(0, 0, 100%);
+        background-color: $sky;
+        li {
+          background-color: transparent;
+          border: solid 1px white;
+          border-radius: 1em;
+          padding: 2px 8px 4px;
+          label {
+            color: white;
+          }
+        }
+      }
+    }
+
+    #exit_guide {
+      &:link {
+        color: $admin;
+      }
+      &:hover {
+        color: blue;
+      }
+    }
+    .transit {
+      @include flexy(wrap);
+      column-gap: 1em;
+      margin: 1em 0;
+      color: black;
+      justify-content: center;
+      figure {
+        @include flex(1, 1, 1em);
+        border: solid 1px blue;
+        align-self: start;
+        max-width: 20em;
+        &.pdf {
+          background-color: blanchedalmond;
+          max-width: 10em;
+        }
+        img {
+          display: block;
+          width: 100%;
+        }
+        figcaption {
+          background-color: white;
+          padding: 2px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  #admin main {
+    div.uploadpreview {
+      &.gallery {
+        form {
+          fieldset {
+            > * {
+              width: 100%;
+            }
+            #uploadfile {
+              grid-column: span 6;
+            }
+            #box {
+              grid-column: span 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 667px) {
+  #admin {
+    main {
+      div.uploadpreview form fieldset {
+        #alt {
+          grid-column: span 4;
+        }
+        #attr_id {
+          grid-column: span 2;
+        }
+        #params {
+          @include flexy;
+          > * {
+            @include flex(1, 1, 1rem);
+            width: 100%;
+          }
+        }
+        #uploadfile {
+          grid-column: span 4;
+        }
+        #path {
+          grid-column: span 3;
+        }
+      }
+    }
+  }
+}
+
+/*
+@media only screen and (max-width: 887px) {
+  #admin {
+    .uploadpreview {
+      &.pic {
+        form {
+          @include flex(1, 0, 100%);
+        }
+        #upload_guide {
+          order: 2;
+        }
+      }
+      .previews {
+        order: 3;
+      }
+    }
+  }
+}
+  */
+
+@media only screen and (min-width: $mobilepx) {
+  #admin main {
+    div.uploadpreview {
+      @include flexy;
+      flex-direction: row;
+      gap: 1em;
+      &.pic {
+        flex-wrap: wrap;
+      }
+      form {
+        @include flex(4, 1, 1rem);
+        min-width: 40%;
+        fieldset {
+          grid-template-columns: 5em repeat(7, 1fr);
+          #alt,
+          #attr_id,
+          #uploadfile {
+            grid-column: span 7;
+          }
+          #params,
+          #path {
+            grid-column: span 8;
+            > * {
+              width: 100%;
+            }
+          }
+        }
+      }
+      &.pic > .previews {
+        @include flex(1, 1, 1rem);
+        .pdf {
+          @include flexy($wrap: wrap);
+          align-items: start;
+          a {
+            @include flex(1, 1, 2.5em);
+            border: 1px solid brown;
+            padding: 0;
+            margin: 1px;
+            display: block;
+            background-color: blanchedalmond;
+            max-width: calc(50% - 2px);
+            img {
+              border-width: 0;
+              object-fit: cover;
+              width: 100%;
+              display: block;
+            }
+          }
+        }
+      }
+      &.pic #upload_guide {
+        @include flex(1, 1, 1rem);
+      }
+      &.slide form,
+      &.slide #upload_guide {
+        display: none;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #admin.wrap {
+    .uploadpreview {
+      #upload_guide,
+      > .previews {
+        overflow: hidden;
+        padding: 0.25em 0.75em;
+        border: solid 1px black;
+        border-radius: 8px;
+        align-self: stretch;
+        figure {
+          margin: 0.25em 0;
+          width: 100%;
+          max-width: 20em;
+          a {
+            overflow: hidden;
+            &,
+            img {
+              display: block;
+              width: 100%;
+              margin: 0;
+            }
+          }
+        }
+        > * {
+          border-radius: 4px;
+        }
+        &.pic .previews {
+          padding: 0;
+        }
+        &.reloaded .previews a {
+          border-color: orangered;
+        }
+      }
+      form {
+        margin: 0 1%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $superpx) {
+  #admin {
+    main {
+      div.uploadpreview {
+        @include flexy;
+        gap: 1em;
+        form {
+          @include flex(4, 1, 10rem);
+          fieldset {
+            grid-template-columns: 5em repeat(15, 1fr);
+            label {
+              grid-column: span 1;
+            }
+            input {
+              grid-column: span 7;
+            }
+            #uploadfile {
+              grid-column: span 15;
+            }
+            #path {
+              grid-column: span 8;
+            }
+            #alt {
+              grid-column: span 8;
+            }
+            #attr_id {
+              grid-column: span 6;
+            }
+            #params {
+              grid-column: span 16;
+              @include flexy;
+            }
+          }
+        }
+        &.pic {
+          #uploadfile {
+            grid-column: span 7;
+          }
+        }
+
+        &.pdf {
+          #alt {
+            grid-column: span 4;
+          }
+          #attr_id {
+            grid-column: span 10;
+          }
+        }
+      }
+    }
+  }
+}
+/*
+#admin
+  main
+  .orphans
+  .adminlist
+  input#all
+  ~ li
+  > input[type="checkbox"]:checked
+  + label:after {
+  content: none;
+}
+*/
+
+#admin main .orphans .adminlist input#all {
+  @include hide;
+  + label {
+    flex: 0 0 100%;
+    position: relative;
+    display: block;
+    z-index: 1;
+    &::after {
+      content: "trash";
+      display: block;
+      position: absolute;
+      right: calc(50% - 12px);
+      border-radius: 50%;
+      @include trash(24px, "100% center", blue);
+    }
+  }
+  &:checked {
+    ~ li > input[type="checkbox"] {
+      + label {
+        &::after {
+          content: "trash";
+          display: block;
+          position: absolute;
+          right: 5px;
+          bottom: 5px;
+          border-radius: 50%;
+          @include trash(25px, "100% center", red);
+        }
+      }
+    }
+
+    ~ li > input[type="checkbox"]:checked + label::after {
+      content: none;
+      color: pink;
+    }
+  }
+}
+
+#admin
+  .adminlist
+  input#all:checked
+  ~ li
+  > input[type="checkbox"]
+  + label:after {
+  content: none;
+}
+
+#admin main .orphans input#backup {
+  @include hide;
+  + label {
+    flex: 0 0 100%;
+    position: relative;
+    display: block;
+    &:after {
+      content: "trash";
+      display: block;
+      position: absolute;
+      right: calc(50% - 12px);
+      border-radius: 50%;
+      @include trash(24px, "100% center", purple);
+    }
+  }
+  &:checked + label:after {
+    background-color: red;
+  }
+}
+
+#admin main .orphans > ul.adminlist ~ ul input[type="submit"] {
+  margin-top: 30px;
+}

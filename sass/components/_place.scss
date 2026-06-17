@@ -1,0 +1,128 @@
+#place {
+  background: white;
+}
+
+@media screen and (min-width: 575px) {
+  #placey {
+    .no-js & section.portrait {
+      @include flexy(wrap);
+      align-items: start;
+      gap: 0.8em;
+      .read-more-trigger {
+        @include flex(1, 1, 100%);
+      }
+      article {
+        @include flex(3, 1, 1em);
+        p:first-of-type {
+          margin: 0 0 0 0.8em;
+        }
+      }
+      img {
+        @include flex(2, 1, 1em);
+        order: 3;
+        width: 100%;
+        margin: 0;
+      }
+    }
+    .js & section.portrait {
+      display: block;
+      article {
+        display: grid;
+        grid-template-columns: 1fr 16em;
+        grid-template-rows: auto auto auto 1fr;
+        gap: 0.8em;
+        p {
+          grid-row: span 1;
+          grid-column: 1/2;
+          margin: 0 0 0 0.8em;
+        }
+        h3 {
+          grid-row: 1/2;
+          grid-column: span 2;
+        }
+        img {
+          grid-row: 2/5;
+          grid-column: 2/3;
+          width: 100%;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 668px) {
+  #placey {
+    .js & section.portrait {
+      article {
+        p {
+          grid-column: 1/6;
+        }
+        h3 {
+          grid-row: 1/2;
+        }
+        img {
+          grid-column: 5/8;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $mobilepx) {
+  #place {
+    h2 {
+      background-color: hsl(208, 75%, 41%);
+      span {
+        background: transparent 0% 20% url(../images/dev/sub_place.png)
+          no-repeat;
+      }
+    }
+  }
+  #placey {
+    .override section.portrait {
+      @include flexy;
+      align-items: start;
+      flex-direction: row-reverse;
+      padding: 1.5em;
+      border-radius: 8px;
+      background: #262626 url(../images/dev/swirl.png) center/5%;
+      article {
+        display: block;
+        @include flex(3, 1, 1em);
+        h3 > a,
+        p {
+          color: white;
+        }
+        p:nth-child(n + 1) {
+          margin: 0.8em 0 0;
+        }
+      }
+      img {
+        @include flex(1, 1, 1em);
+        width: 1%;
+        order: 0;
+        margin: 1em 0em 0 2em;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #placey {
+    .override section.portrait {
+      padding: 1.5em 1.5em 1.5em 2.5em;
+      article {
+        @include flex(5, 1, 1em);
+        p a:link,
+        p a:visited {
+          color: $h2;
+        }
+        p a:hover,
+        p a:active {
+          color: $articlehead;
+        }
+      }
+    }
+  }
+}

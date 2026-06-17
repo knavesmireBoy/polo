@@ -1,0 +1,37 @@
+// Base
+@import url(https://fonts.googleapis.com/css?family=Merriweather:wght@400;700&display=swap);
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/reset';
+@import 'base/fonts';
+
+// Components
+/*
+@import 'components/normalise';
+@import 'components/hacks';
+@import 'components/font-awesome';
+*/
+@import 'components/fonts';
+@import 'components/content_mobile';
+@import 'components/content';
+@import 'components/layout_mobile';
+@import 'components/layout';
+
+@import 'components/home';
+@import 'components/trust';
+@import 'components/scholars';
+@import 'components/place';
+@import 'components/stay';
+@import 'components/polo';
+@import 'components/medley';
+@import 'components/enq';
+@import 'components/contact';
+
+@import 'components/gal_content';
+@import 'components/gal_layout';
+
+@import 'components/myadmin';
+@import 'components/myadmin_layout';
+@import 'components/myadmin_article';
+@import 'components/myadmin_upload';
+@import 'components/myadmin_gallery';

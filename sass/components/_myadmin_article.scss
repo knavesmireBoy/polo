@@ -1,0 +1,221 @@
+#admin {
+  main {
+    #edit_article {
+      padding: 1em;
+      form {
+        width: 100%;
+        fieldset {
+          width: 100%;
+          display: grid;
+          gap: 0.5em;
+          align-items: start;
+          grid-template-columns: repeat(16, 1fr);
+          label {
+            justify-self: stretch;
+            &[for="summary"],
+            &[for="tx"] {
+              grid-column: span 16;
+            }
+          }
+          input {
+            line-height: 1.4;
+          }
+
+          #summary,
+          #michelf {
+            grid-column: span 16;
+            #usage, #info {
+              @include hide;
+            }
+            > label {
+              display: block;
+              color: white;
+              background-color: black;
+              &:hover {
+                color: yellow;
+              }
+            }
+            tt {
+              color: $current;
+            }
+            #usage:checked ~ #info {
+              @include show;
+            }
+          }
+          #order {
+            grid-column: span 16;
+            @include flexy;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: $admin;
+            border-radius: 4px;
+            input {
+              @include flex(1, 0, 2em);
+              margin: 0 0.5em;
+              &#position {
+                min-width: 3em;
+              }
+            }
+          }
+          textarea {
+            grid-column: span 16;
+            font: 1rem/1.3 "Courier New", Courier, monospace;
+            // line-height: 1.3;
+            padding: 0.5em;
+            background-color: rgba(205, 232, 248, 0.2);
+            border-radius: 4px;
+          }
+
+          #pubDate {
+            line-height: 1;
+            grid-column: span 15;
+          }
+          #attr_id,
+          #title,
+          #page {
+            grid-column: span 15;
+          }
+
+          select#page {
+            border: solid 1px gray;
+            height: 100%;
+          }
+
+          ul#controls {
+            @include flexy(wrap);
+            grid-column: span 16;
+            border: solid 1px;
+            li {
+              @include flex(0, 1, 16.666%);
+              background-color: $dusk;
+              background-color: darkslategray;
+              &:nth-last-child(2) {
+                background-color: $current;
+              }
+              &:hover {
+                background-color: slategray;
+              }
+              &.hi {
+                background-color: blue;
+              }
+              img {
+                display: block;
+                width: 100%;
+              }
+            }
+          }
+          ul#mdguide {
+            display: none;
+          }
+          ul#mdguide.active {
+            display: block;
+            grid-column: span 16;
+            background-color: hsl(59, 61%, 93%);
+            font-family: Georgia, "Times New Roman", Times, serif;
+            padding: 1em;
+            a, tt {
+              color: $current;
+            }
+            > strong {
+              color: darkgreen;
+            }
+            > li {
+              margin: 0.5em 0 0;
+              > ol {
+                margin: 0.25em 0;
+              }
+            }
+            a#demo {
+              max-width: 1.5em;
+              display: block;
+              float: left;
+              margin: 3px;
+              border: solid 1px blue;
+              border-radius: 4px;
+              overflow: hidden;
+              img {
+                display: block;
+                width: 100%;
+                background-color: firebrick;
+              }
+              &.none {
+                max-width: 1em;
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+                margin: 1px;
+              }
+            }
+            li.hi a#demo {
+              float: none;
+            }
+          }
+        }
+      }
+      h4 + form textarea {
+        background-color: rgba(248, 205, 212, 0.2);
+      }
+    } //edit_article form
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  #admin main #edit_article form fieldset {
+    #pubDate,
+    #attr_id {
+      grid-column: span 7;
+    }
+  }
+}
+
+@media only screen and (min-width: 668px) {
+  #admin {
+    main {
+      #edit_article {
+        margin: 0 auto;
+        form fieldset {
+          #title,
+          #page {
+            grid-column: span 7;
+          }
+          #pubDate,
+          #attr_id {
+            grid-column: span 3;
+          }
+
+          div#order {
+            grid-column: span 8;
+          }
+
+          ul#controls {
+            @include flexy();
+          }
+        }
+      }
+
+      #edit_page fieldset {
+        > input {
+          grid-column: span 1;
+        }
+
+        > label[for="description"],
+        #description,
+        > label[for="content"],
+        #content {
+          grid-row: 2/3;
+        }
+        #order {
+          grid-row: 1/2;
+          grid-column: 5/9;
+        }
+        #description {
+          grid-column: span 3;
+        }
+        #content {
+          grid-column: span 3;
+        }
+      }
+    }
+  }
+}

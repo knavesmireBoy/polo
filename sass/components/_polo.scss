@@ -1,0 +1,40 @@
+
+#polo {
+  background: white;
+}
+@media screen and (max-width: 867px) {
+  #polo li:nth-child(6):hover ul {
+    left: auto;
+    right: 0px;
+  }
+}
+
+@media only screen and (min-width: $mobilepx) {
+  #polo {
+    h2 {
+      span {
+        background-image: url(../images/dev/sub_polo.png);
+      }
+    }
+    section.multi {
+      border-radius: 8px;
+      padding: 1.5em;
+      background: #262626 url(../images/dev/swirl.png) center/5%;
+      background-color: hsl(120, 100%, 10%);
+
+      h3 > a,
+      p {
+        color: white;
+      }
+    }
+
+    img.portrait {
+      width: 33.3%;
+    }
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #polo section.multi {
+    padding: 1.5em 1.5em 1.5em 2.5em;
+  }
+}

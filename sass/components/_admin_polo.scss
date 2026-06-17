@@ -1,0 +1,487 @@
+///NEW STUFF//////NEW STUFF//////NEW STUFF//////NEW STUFF//////NEW STUFF//////NEW STUFF///
+//https://stackoverflow.com/questions/42393346/how-to-apply-a-style-to-both-parent-and-child-in-scss
+
+#admin {
+  main {
+    font-size: 1em;
+    .dual {
+      form {
+        border: solid 0 pink;
+        padding: 0;
+
+        input {
+          margin: 0 0.4em;
+        }
+      }
+      a {
+        display: block;
+        line-height: 1.5;
+      }
+    }
+    form {
+      fieldset {
+        input {
+          @include flex(2, 1, 1em);
+        }
+        input[type="checkbox"] {
+          @include flex(0, 0, 8px);
+        }
+        #attr_id {
+          @include flex(1, 1, 1em);
+        }
+      }
+    }
+
+    #content h4 {
+      display: none;
+    }
+    .remplacer,
+    .pp {
+      margin: 0 0 1em;
+      text-align: center;
+      margin: 0 auto;
+      background-color: $adminbg;
+      border-radius: 8px;
+      padding: 0.3em;
+      .active {
+        color: hsl(0, 0%, 36%);
+      }
+      li > * {
+        padding: 4px;
+      }
+      li span {
+        font-weight: bold;
+      }
+    }
+    .remplacer {
+      background-color: transparent;
+    }
+    #pageselect {
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.5);
+      select {
+        border-radius: 8px;
+      }
+      label,
+      input {
+        padding: 0 2px;
+        border-radius: 6px;
+      }
+      label {
+        padding: 3px 5px;
+      }
+    }
+    #setrecords {
+      @include flexy;
+      margin: 0.5em auto;
+      justify-content: space-around;
+      background-color: rgba(255, 255, 255, 0.5);
+      .js & {
+        justify-content: center;
+        > * {
+          margin: 0.5em 0.25em;
+        }
+      }
+    }
+    .preview {
+      border: solid 1px blue;
+      margin: 1em auto;
+      text-align: center;
+      width: 70%;
+
+      a#preview {
+        display: block;
+        &:hover {
+          border-color: purple;
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+    a.preview {
+      display: block;
+      border-width: 0;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+#admin {
+  .pp {
+    @include flexy;
+    justify-content: space-between;
+    align-content: center;
+    border: solid 1px;
+    > * {
+      align-self: center;
+    }
+  }
+  .adminlist {
+    text-align: center;
+    margin: 0 auto;
+
+    &.dual li {
+      @include flexy;
+      @include flex_sp_bt;
+      align-content: center;
+      &:first-child,
+      &:last-child {
+        a:nth-child(odd) {
+          background-color: transparent;
+          border-width: 0;
+        }
+      }
+      a {
+        margin: 0 1em 0 0;
+
+        &:last-child {
+          border-radius: 8px;
+          padding: 2px 4px;
+          margin: 0;
+        }
+        &:hover {
+          color: $dusk;
+        }
+        &.pdf_file {
+          background-color: blanchedalmond !important;
+        }
+      }
+    }
+    &.asset {
+      @include flexy(wrap);
+      background-color: hsla(208, 88%, 53%, 0.5);
+      border-radius: 8px;
+      padding: 0.5em 0;
+      box-shadow: 0 0 5px 1px white;
+      li {
+        margin: auto;
+        a.thumb {
+          align-self: start;
+          border: solid 1px blue !important;
+        }
+        a.pdf_file {
+          align-self: start;
+          border: solid 1px red !important;
+          max-width: 5.5rem;
+        }
+        a.trash {
+          align-self: flex-end;
+          background-color: transparent;
+          border-radius: 60%;
+        }
+      }
+    }
+  }
+
+  .remplacer {
+    margin: 0 auto;
+  }
+
+  form.delete,
+  form.archive {
+    border-width: 0;
+    padding: 0;
+    background-color: black;
+    input[type="submit"]:hover {
+      background-color: transparent;
+    }
+    + p {
+      text-align: center;
+    }
+  }
+
+  .affirm {
+    display: block;
+    padding: 1em;
+    background-color: black;
+    border-radius: 8px;
+    p {
+      color: $hi;
+      a {
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+  footer {
+    margin: 0 auto;
+  }
+
+  #support {
+    width: 100%;
+  }
+
+  #support a,
+  #support img {
+    width: 100%;
+    display: block;
+  }
+}
+
+#admin {
+  h2:nth-of-type(1) {
+    background-image: none;
+    background-color: rgba(68, 1, 83, 0.733);
+    margin: 0 0 1em;
+    text-align: center;
+    span:first-child {
+      color: white;
+      background-color: transparent;
+      width: 100%;
+      text-indent: 0;
+      text-align: center;
+    }
+  }
+
+  main {
+    a:link,
+    a:visited {
+      color: $current;
+      font-weight: bold;
+    }
+    a:hover,
+    a:active {
+      color: $dusk;
+    }
+
+    form.archive + p {
+      text-align: center;
+    }
+    .pp {
+      border: solid 1px black;
+      li {
+        a {
+          display: block;
+          border: solid 1px gainsboro;
+          padding: 2px 7px;
+          border-radius: 50%;
+          &:link,
+          &:visited {
+            color: gray;
+          }
+          &:hover,
+          &:active {
+            color: royalblue;
+          }
+        }
+        &.active {
+          span {
+            display: block;
+            border: solid 1px royalblue;
+            padding: 2px 7px;
+            border-radius: 50%;
+            color: $admin;
+          }
+        }
+        &:last-of-type a {
+          @include nav(25px, center 90%);
+          &:hover {
+            background-color: royalblue;
+          }
+        }
+        &:first-of-type a {
+          @include nav(25px, center 0%);
+          &:hover {
+            background-color: royalblue;
+          }
+        }
+      }
+    }
+    .adminlist {
+      a:link,
+      a:visited {
+        color: $admin;
+        font-weight: normal;
+      }
+      a:hover,
+      a:active {
+        color: $dusk;
+      }
+    }
+    .adminlist.asset li > a + a,
+    input[type="submit"] {
+      color: white;
+      background-color: $admin;
+      border-width: 0;
+      border-radius: 8px;
+      padding: 2px 4px;
+      &:hover {
+        color: $hi;
+        background-color: darken($admin, 15%);
+      }
+    }
+    .adminlist.dual.asset li > a {
+      margin: 0;
+      &.trash {
+        margin-left: -25px;
+      }
+    }
+  }
+}
+//admin main
+
+#admin form {
+  &.archive,
+  &.delete {
+    padding: 0.5em 0;
+    input {
+      display: inline-block;
+      &[type="submit"] {
+        @include trash(25px, center 34%);
+        border-radius: 50%;
+      }
+    }
+  }
+  &.delete {
+    input[type="submit"] {
+      @include trash(25px);
+    }
+  }
+}
+
+#admin {
+  .orphans .adminlist {
+    @include flexy(wrap);
+    justify-content: space-around;
+
+    > li {
+      padding: 0;
+      overflow: hidden;
+      display: block;
+      margin: auto;
+      label {
+        display: block;
+        overflow: hidden;
+        padding: 0;
+        border-radius: 8px;
+        img {
+          width: 100%;
+          border-radius: 8px;
+          border: solid 1px white;
+        }
+      }
+      > input[type="checkbox"] {
+        @include hide;
+        &:checked + label img {
+          border: solid 1px red;
+        }
+      }
+    }
+    ul {
+      margin: 0.5em 0;
+      @include flex(0, 0, 100%);
+      li {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 668px) {
+  #admin {
+    div.uploadpreview {
+      flex-direction: row;
+      gap: 1em;
+      &.pic {
+        flex-wrap: wrap;
+      }
+      form {
+        @include flex(2, 1, 1em);
+      }
+      &.pic > .previews {
+        order: 3;
+        .pdf {
+          @include flexy($wrap: wrap);
+          align-items: start;
+          a {
+            @include flex(1, 1, 2.5em);
+            border: 1px solid brown;
+            padding: 0;
+            margin: 1px;
+            display: block;
+            background-color: blanchedalmond;
+            img {
+              border-width: 0;
+              object-fit: cover;
+              width: 100%;
+              display: block;
+            }
+          }
+        }
+      }
+      #upload_guide {
+        @include flex(1, 1, 1em);
+      }
+      &.pic #upload_guide {
+        order: 2;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 813px) {
+  #admin.wrap {
+    .uploadpreview {
+      #upload_guide,
+      > .previews {
+        @include flex(2, 0, 20%);
+        overflow: hidden;
+        padding: 0.25em 0.75em;
+        border: solid 1px black;
+        border-radius: 8px;
+        align-self: stretch;
+        figure {
+          margin: 0.25em 0;
+          width: 100%;
+          a {
+            overflow: hidden;
+            &,
+            img {
+              display: block;
+              width: 100%;
+              margin: 0;
+            }
+          }
+        }
+        > * {
+          border-radius: 4px;
+        }
+        &.pic .previews {
+          padding: 0;
+        }
+        &.reloaded .previews a {
+          border-color: orangered;
+        }
+      }
+      #upload_guide {
+        order: 1;
+      }
+      form {
+        @include flex(4, 0, 50%);
+        margin: 0 1%;
+        order: 2;
+      }
+      &.reload #upload_guide {
+        display: none;
+      }
+    }
+    .edit_asset > form fieldset {
+      @include flexy;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #admin.wrap {
+    main {
+      padding: 1% 15% 0;
+    }
+    .edit_asset > form fieldset {
+      display: grid;
+    }
+  }
+}

@@ -1,0 +1,442 @@
+/*https://www.smashingmagazine.com/2019/03/web-on-internet-explorer-ie8/
+“Optimize for the majority, make an effort for the minority, and never sacrifice security.”
+https://stackoverflow.com/questions/52364501/fallback-for-svg-injection-with-no-javascript-svg-support
+https://codepen.io/ourmaninamsterdam/pen/ilBIz
+https://codepen.io/tigt/post/inline-svg-fallback-without-javascript-take-2*/
+
+body {
+  background: no-repeat hsl(234, 15%, 78%) url("../images/dev/sky.png") 0 0 /
+    auto;
+}
+
+@media only screen and (min-width: $mobilepx) {
+  .wrap > header {
+    background: hsla(258, 60%, 67%, 1) url(../images/dev/header_only.jpg)
+      no-repeat 0 60%;
+    @include prefix(background-size, cover, ms moz o webkit);
+  }
+  h2 {
+    margin: 0.8em 0 0;
+    font: normal 2.6em/1.2 "Lora", Georgia, serif;
+    padding: 1px 0;
+    color: $h2;
+    text-shadow: 1px 1px 1px 1px black;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    @include prefix(background-size, 100%, ms moz o webkit);
+  }
+
+  h2:hover,
+  h2:focus,
+  h2:active {
+    color: $h2;
+  }
+
+  .override section {
+    h3:first-of-type {
+      margin: 0 0 0.5em;
+      line-height: 1;
+      padding: 0;
+      border-width: 0 !important;
+      background-color: transparent;
+      background-image: none;
+      a:link,
+      a:visited {
+        color: $link;
+        text-shadow: none;
+      }
+      a:hover {
+        color: darken($link, 5%);
+      }
+    }
+    //background-image: url(../images/dev/704.jpeg);
+    background-blend-mode: screen;
+  }
+  p {
+    color: #444;
+    text-align: justify;
+    margin: 0.5em 0 0 0;
+  }
+  header + h2 {
+    background-image: url(../images/dev/back-pattern.png);
+    span {
+      display: inline-block;
+      padding: 0 0 0 9rem;
+      background-repeat: no-repeat;
+      background-color: white;
+      /*to cover background gradient on h2*/
+    }
+  }
+
+  header nav ul {
+    font: bold 0.95em/2 "Roboto", "Arial Black", Arial, Verdana, Helvetica,
+      serif;
+    text-transform: uppercase;
+    font-size: calc(12px + 2 * ((100vw - 751px) / (1280 - 751)));
+    li a:nth-child(n + 1) {
+      border: solid 1px;
+      border-color: #ccc $nav $nav #ccc;
+      padding: 0;
+    }
+  }
+
+  .override section > img {
+    border-radius: 4px;
+    box-shadow: 0px 0px 20px olive;
+    border: solid 1px white;
+  }
+
+  article a {
+    font-weight: bold;
+  }
+
+  header h1,
+  h2 span,
+  header h1 img {
+    border-width: 0;
+  }
+
+  .wrap header nav > ul > li {
+    > a:link,
+    > a:visited {
+      background-color: $navbg;
+      @include my-linear-gradient(
+        hsl(265, 54%, 64%),
+        hsl(265, 64%, 81%),
+        hsl(265, 54%, 64%)
+      );
+      text-align: center;
+    }
+  }
+
+  .wrap header nav > ul > li > {
+    a:hover,
+    a:active {
+      color: white;
+      background-color: $navbgho;
+      @include my-linear-gradient(
+        hsl(60, 25%, 52%),
+        hsl(60, 25%, 74%),
+        hsl(60, 25%, 52%)
+      );
+      text-align: center;
+    }
+  }
+
+  p a:hover,
+  p a:active {
+    text-decoration: underline;
+  }
+  footer a[href^="mailto:i"]:before {
+    content: " | ";
+  }
+  header nav > ul > li > a,
+  header nav > ul > li > a:link,
+  header nav > ul > li > a:visited {
+    color: $nav;
+  }
+  header nav > ul > li > a:hover,
+  header nav > ul > li > a:active {
+    background-color: $navho;
+  }
+
+  footer {
+    /*certain browsers support background-size but not keywords cover, contain etc..*/
+    // background: url(../images/dev/footer_green_ko.png) no-repeat bottom right;
+    background-image: url(../images/dev/tear3.png), url(../images/dev/swirl.png);
+    background-repeat: no-repeat, repeat;
+    background-position: center, center;
+    background-size: cover, 5%;
+    background-blend-mode: normal, hard-light;
+    /*
+    background: hsl(120, 97%, 12%) url(../images/dev/tear3.png) no-repeat
+      center;
+    @include prefix(background-size, cover, ms moz o webkit);
+    */
+    #footer_girl {
+      a:first-child {
+        width: 8em;
+        img {
+          filter: drop-shadow(0 0 5px $maine);
+        }
+      }
+      a:nth-last-child(-n + 2):before {
+        @include cheekydot(brown);
+      }
+    }
+    #footer_boy > a img {
+      filter: drop-shadow(0 0 5px $maine);
+    }
+    div a:hover {
+      color: $linkhover;
+    }
+    > a {
+      border-top: dotted 1px $linkhover;
+      border-top: dotted 1px brown;
+      text-align: right;
+      padding: 0.75em 1em 0.75em 0;
+      &:before {
+        @include cheekydot(brown);
+      }
+      &:after {
+        @include cheekydot(brown);
+        content: " •";
+      }
+    }
+  }
+
+  @for $i from 1 through length($navlist) {
+    $l: nth($navlist, $i);
+    #{$l} header > nav > ul > li:nth-child(#{$i}) > a {
+      color: white;
+    }
+  }
+  /*
+$navlist will be out of whack if pages are removed (or renamed) so..
+  #scholars header > nav > ul > li > a[href*=scholars] {
+    color: white;
+  }
+*/
+  .wrap #submenu a:link,
+  .wrap #submenu a:visited {
+    color: #306;
+    color: hsl(270, 100%, 20%);
+  }
+  .wrap #submenu a:hover,
+  .wrap #submenu a:active {
+    background-color: white;
+    border-color: #900;
+  }
+  //jsass JS fallback should page names change
+  header > nav > ul#nav > li.hi > a {
+    color: white
+  }
+  /*
+  header > nav > ul#nav > li.hi > a:hover {
+    color: white
+  }
+*/
+  #lost {
+    background-color: $maine;
+    h2 {
+      background-color: hsl(199, 30%, 33%);
+      span {
+        background: transparent url(../images/dev/dog_gone.jpg) no-repeat 0% 30% /
+          16%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .public.wrap {
+    background-color: $maine;
+    section:nth-child(n + 1) {
+      background-color: $maine;
+      background-image: url(../images/dev/tear.svg);
+      background-size: cover;
+    }
+  }
+
+  footer {
+    background-image: url(../images/dev/tear3.png), url(../images/dev/swirl.png);
+  }
+}
+
+////\\\\\//////////\\\\\//////////\\\\\//////////\\\\\//////////\\\\\//////////\\\\\//////
+
+@media screen and (min-width: 1260px) {
+  .wrap > header {
+    background: hsla(258, 60%, 80%, 1) url(../images/dev/crop.JPG) no-repeat
+      center 10% / cover;
+  }
+  /*
+  .override section img {
+    box-shadow: none;
+    border-color: #444;
+    border-radius: 1em;
+  }
+
+ 
+  .override section h3:nth-child(n+1) {
+    //white-space: nowrap;
+    margin: 0.3em 0 1.5em 0;
+    padding: 0.5em 0.5em 0.4em;
+    text-transform: uppercase;
+    text-align: center;
+    border-width: 0 !important;
+    font: bold 1.75em/1 "Lora", Georgia, serif;
+  }
+  .wrap section h3 a {
+    &,
+    &:link {
+      color: #666;
+    }
+  }
+  .wrap h2 {
+    background: none;
+    text-align: center;
+  }
+  .wrap h2 span:first-child {
+    padding: 0 0.5em;
+    display: inline-block;
+    border-radius: 1em;
+    color: white;
+    background-image: linear-gradient(
+      hsl(265, 54%, 64%),
+      hsl(265, 64%, 74%),
+      hsl(265, 54%, 64%)
+    );
+  }
+  .wrap h2:after {
+    content: "";
+    display: block;
+    height: 0.1em;
+    margin: -0.88em 1% 1em;
+    border-radius: 1em;
+    background-image: linear-gradient(
+      to left,
+      hsla(265, 54%, 64%, 0),
+      hsl(265, 64%, 74%),
+      hsla(265, 54%, 64%, 0)
+    );
+    background-color: transparent;
+  }
+  section h3:first-of-type a:link,
+  section h3:first-of-type a:visited {
+    border: solid 1px hsl(58, 60%, 40%);
+    padding: 0.2em 0.6em;
+    border-radius: 1em;
+    background-color: white;
+    color: #666;
+  }
+
+// para rules before/after don't work on float layout 
+ // JS only AND working on the assumption that the default article has TWO paragraphs
+
+  .public {
+    .js & {
+      h3:after,
+      p:first-of-type:after,
+      p:first-of-type + p:before {
+        @include prettify;
+      }
+      p:first-of-type:after {
+        @include preprettify;
+      }
+      p:first-of-type + p:before {
+        @include bauble;
+      }
+    }
+    h3:after {
+      @include prettify;
+    }
+
+    p:first-of-type {
+      margin: 0;
+    }
+    .override h3:after {
+      margin: -0.6em 0 0;
+    }
+
+    h2 span {
+      background-image: linear-gradient(
+        hsl(265, 54%, 64%),
+        hsl(265, 64%, 74%),
+        hsl(265, 54%, 64%)
+      );
+    }
+
+    .wrap h3 {
+      padding: 0.5em 0 0;
+    }
+  }
+  .js .public .override {
+    article.zero,
+    article.uno {
+      p:first-of-type:after {
+        content: none;
+      }
+    }
+    article.trio {
+      p:nth-of-type(2) {
+        &:after {
+          @include prettify;
+        }
+        & + p:before {
+          @include bauble;
+        }
+      }
+    }
+    article.quatro {
+      p:nth-of-type(3) {
+        &:after {
+          @include prettify;
+        }
+        & + p:before {
+          @include bauble;
+        }
+      }
+    }
+    article.cinqo {
+      p:nth-of-type(4) {
+        &:after {
+          @include prettify;
+        }
+        & + p:before {
+          @include bauble;
+        }
+      }
+    }
+  }
+  */
+}
+
+/*
+@media only screen and (min-width: 1024px) {
+	.js article, .js section>img, aside {
+		-webkit-transition-property: opacity, -webkit-transform;
+		transition-property: opacity, -webkit-transform;
+		-o-transition-property: transform, opacity;
+		transition-property: transform, opacity, -webkit-transform;
+		transition-property: transform, opacity;
+		-webkit-transition-duration: 3s;
+		-o-transition-duration: 3s;
+		transition-duration: 3s;
+		opacity: 0;
+	}
+	.js section>img, .js aside {
+		-webkit-transform: translate(100em, 0);
+		-ms-transform: translate(100em, 0);
+		transform: translate(100em, 0);
+	}
+	.js section>img:last-of-type {
+		-webkit-transform: translate(150em, 0);
+		-ms-transform: translate(150em, 0);
+		transform: translate(150em, 0);
+	}
+	.js article, .js section:nth-child(even)>img {
+		-webkit-transform: translate(-100em, 0);
+		-ms-transform: translate(-100em, 0);
+		transform: translate(-100em, 0);
+	}
+	.js section:nth-child(even) article {
+		-webkit-transform: translate(100em, 0);
+		-ms-transform: translate(100em, 0);
+		transform: translate(100em, 0);
+	}
+	.js .override .display article, .js .override .display>img, .js .display aside {
+		-webkit-transform: translate(0, 0);
+		-ms-transform: translate(0, 0);
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+	#enquiries article, #enquiries section img {
+		-webkit-transform: translate(0, 0);
+		-ms-transform: translate(0, 0);
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+*/

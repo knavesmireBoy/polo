@@ -1,0 +1,348 @@
+/* Mixin to prefix a property
+/// @author Kitty Giraudel
+/// @param {String} $property - Property name
+/// @param {*} $value - Property value
+/// @param {List} $prefixes (()) - List of prefixes to print
+/// */
+@mixin prefix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+  // Output standard non-prefixed declaration
+  #{$property}: $value;
+}
+
+//EXAMPLE USAGE
+/*.selector {
+  @include prefix(transform, rotate(45deg), webkit ms);
+}
+  */
+/*
+https://www.sitepoint.com/building-linear-gradient-mixin-sass/#buildingthemixin
+Test if `$value` is a valid direction
+@param {*} $value - Value to test
+@return {Bool}
+*/
+
+@function is-direction($value) {
+  $is-keyword: index(
+    (
+      to top,
+      to top right,
+      to right top,
+      to right,
+      to bottom right,
+      to right bottom,
+      to bottom,
+      to bottom left,
+      to left bottom,
+      to left,
+      to left top,
+      to top left
+    ),
+    $value
+  );
+  $is-angle: type-of($value) == "number" and
+    index("deg" "grad" "turn" "rad", unit($value));
+  @return $is-keyword or $is-angle;
+}
+/*
+@param {Keyword | Angle} $value - Value to convert
+@require {function} is-direction
+@require {function} convert-angle
+///@throw Cannot convert `#{value}` to legacy syntax because it doesn't seem to be a direction.;
+*/
+@function legacy-direction($value) {
+  @if is-direction($value) == false {
+    @error "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.";
+  }
+
+  $conversion-map: (
+    to top: bottom,
+    to top right: bottom left,
+    to right top: left bottom,
+    to right: left,
+    to bottom right: top left,
+    to right bottom: left top,
+    to bottom: top,
+    to bottom left: top right,
+    to left bottom: right top,
+    to left: right,
+    to left top: right bottom,
+    to top left: bottom right
+  );
+
+  @if map-has-key($conversion-map, $value) {
+    @return map-get($conversion-map, $value);
+  }
+
+  @return 90deg - $value;
+}
+
+@mixin my-linear-gradient($direction, $color-stops...) {
+  // Direction has been omitted and happens to be a color-stop
+  @if is-direction($direction) == false {
+    $color-stops: $direction, $color-stops;
+    $direction: 180deg;
+  }
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(
+    legacy-direction($direction),
+    $color-stops
+  );
+  background: -o-linear-gradient(legacy-direction($direction), $color-stops);
+  background: -moz-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+
+@mixin my-multi-linear-gradient($colors) {
+  background: nth($colors, 1);
+  background: linear-gradient(to right, $colors...);
+}
+
+@mixin postfix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    $property: #{"-" + $prefix + "-" + $value};
+  }
+  // Output standard non-prefixed declaration
+  $property: #{$value};
+}
+
+@mixin footy() {
+  background-repeat: no-repeat;
+  background-image: url("../assets/grass_ipad.png");
+}
+
+@mixin mainpara($t: 0.5em, $r: 35%, $b: 0.5em, $l: 0, $h: 1.2) {
+  margin: 0.5em 35% 0.5em 0;
+  line-height: $h;
+}
+
+@mixin bgcol($col: transparent) {
+  background-color: $col;
+}
+
+@mixin clear() {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@mixin hide($top: auto) {
+  position: absolute;
+  left: -9999px;
+  top: $top;
+}
+
+@mixin show($pos: relative, $top: 0) {
+  position: $pos;
+  left: 0;
+  top: $top;
+}
+
+@mixin hidey() {
+  display: none;
+}
+
+@mixin hideyhi() {
+  display: none;
+}
+
+@mixin showy($pos: relative) {
+  display: block;
+}
+
+@mixin activelink($bg: transparent) {
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  background-color: $bg;
+}
+
+@mixin inactivelink($bg: transparent) {
+  color: $link;
+  text-shadow: none;
+  background-color: $bg;
+}
+
+@mixin biactivelink($bg: transparent) {
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  background-color: $bg;
+}
+@mixin trash($dim: 50px, $pos: center 0%, $col: $admin) {
+  background-image: url(../images/dev/trash_sprite.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: $col;
+  background-position: $pos;
+  display: inline-block;
+  height: $dim;
+  width: $dim;
+  align-self: center;
+  text-indent: $dim;
+  overflow: hidden;
+}
+@mixin lost($dim: 50px, $pos: center 0%, $col: $admin) {
+  //@include trash($dim, $pos, $col);
+  background-image: url(../images/dev/trash_sprite.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: $col;
+  background-position: $pos;
+  display: inline-block;
+  height: $dim;
+  width: $dim;
+  align-self: center;
+  overflow: hidden;
+  text-indent: 0;
+}
+
+@mixin nav($dim: 50px, $pos: center 0%, $col: $admin) {
+  background-image: url(../images/dev/nextprev.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: $col;
+  background-position: $pos;
+  display: inline-block;
+  height: $dim;
+  width: $dim;
+  align-self: center;
+  overflow: hidden;
+  text-indent: $dim;
+}
+
+@mixin border($edge, $color: black, $style: solid, $weight: 1px) {
+  @if $edge {
+    border-#{$edge}: $style $weight $color;
+  } @else {
+    border: $style $weight $color;
+  }
+}
+
+@mixin wavy {
+  background-image: url(../assets/links.jpg);
+  background-repeat: no-repeat;
+  background-position: 0 -4%;
+  color: $nav;
+}
+
+@mixin flexy($wrap: nowrap) {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: $wrap;
+}
+
+@mixin flex($fg: 1, $fs: 0, $fb: auto) {
+  // Set a variable to be used by box-flex properties
+  $fg-boxflex: $fg;
+  // Box-Flex only supports a flex-grow value so lets grab the
+  // first item in the list and just return that.
+  @if type-of($fg) == "list" {
+    $fg-boxflex: nth($fg, 1);
+  }
+
+  -webkit-box: $fg-boxflex;
+  -moz-box: $fg-boxflex;
+  -webkit-flex: $fg $fs $fb;
+  -ms-flex: $fg $fs $fb;
+  flex: $fg $fs $fb;
+}
+@mixin flex_sp_bt() {
+  -webkit-box-pack: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+}
+
+@mixin flex_center() {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+@mixin flex_end() {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: end;
+}
+
+@mixin gridish() {
+  display: ms-grid;
+  display: grid;
+}
+
+@function add($a, $b) {
+  @return $a + $b;
+}
+
+@function subtract($a, $b) {
+  @return $a - $b;
+}
+
+@function multiply($a, $b) {
+  @return $a * $b;
+}
+
+@function divide($a, $b) {
+  @return $a / $b;
+}
+
+@mixin mycalc($props) {
+  $vendor-prefixes: ("moz", "o", "webkit");
+
+  @each $prop, $i in $props {
+    @each $prefix in $vendor-prefixes {
+      #{$prop}: -#{$prefix}-calc(#{$i});
+    }
+
+    #{$prop}: calc(#{$i});
+  }
+}
+/* a = (current browser width(100vw) - minimum operating size) DIVIDED by (max-range - min range)
+        b = (max-font-size(42) - base-font-size(28))
+        c = b * a
+        result = base-font-size + c
+    */
+@mixin doFontSize($fm, $fx, $max, $min) {
+  $vendor-prefixes: ("moz", "o", "webkit");
+  /*font-size: -moz-calc(($fm * 1px) + ($fx - $fm) * (100vw - ($min * 1px)) / ($max - $min));
+font-size: -o-calc(($fm * 1px) + ($fx - $fm) * (100vw - ($min * 1px)) / ($max - $min));
+font-size: -webkit-calc(($fm * 1px) + ($fx - $fm) * (100vw - ($min * 1px)) / ($max - $min));
+    */
+  @each $prefix in $vendor-prefixes {
+    // font-size: -#{$prefix}-calc(($fm * 1px) + ($fx - $fm) * (100vw - ($min * 1px)) / ($max - $min));
+  }
+  font-size: calc(
+    ($fm * 1px) + ($fx - $fm) * (100vw - ($min * 1px)) / ($max - $min)
+  );
+}
+
+@mixin prettify {
+  content: "";
+  border-top: solid 1px hsl(58, 60%, 40%);
+  display: block;
+  margin: 1em 15%;
+}
+
+@mixin preprettify {
+  margin: 1em 15%;
+}
+
+@mixin bauble {
+  content: "";
+  display: block;
+  height: 1em;
+  width: 1em;
+  background: hsl(58, 60%, 40%);
+  margin: -1.5em auto 1em;
+  border-radius: 50%;
+}
+@mixin cheekydot($col: brown) {
+  content: "• ";
+  font-size: 1.6em;
+  line-height: 1;
+  color: $col;
+  vertical-align: middle;
+}

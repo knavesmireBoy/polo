@@ -1,0 +1,344 @@
+img {
+  display: block;
+}
+
+header {
+  width: 100%;
+  position: relative;
+}
+
+main {
+  position: relative;
+  padding: 0 0 10.1em;
+  padding: 0;
+  margin: 0;
+}
+
+section {
+  margin: 3em 0 0;
+}
+
+section > input,
+nav > input {
+  cursor: pointer;
+  position: absolute;
+  left: -9999px;
+}
+
+.wrap > header {
+  > a {
+    display: block;
+    margin: 0;
+    top: 0;
+    min-width: 215px;
+    width: calc(215px + (160) * (100vw - 280px) / (667 - 280));
+    border: solid 1px transparent;
+    h1 {
+      position: relative;
+      height: 1px;
+      line-height: calc(3.8em + (78) * (100vw - 281px) / (667 - 280));
+      @include prefix(background-size, cover, ms moz o webkit);
+      background-repeat: no-repeat;
+    }
+    .no-js & h1 {
+      padding: 0 0 47.5% 0;
+      margin: 0.5em 0 3em 0;
+    }
+  }
+}
+#logo {
+  margin: -9rem 0 0;
+}
+h3,
+section > label {
+  font-size: calc(1.4em + (8) * (100vw - 281px) / (667 - 280));
+}
+
+header > nav {
+  > ul {
+    position: absolute;
+    right: -999px;
+    width: 10em;
+    //crucial for mobile else massive hoz scroll
+    overflow: hidden;
+  }
+}
+header > nav input:checked + ul {
+  top: calc(54px + (10) * (100vw - 320px) / (750 - 320));
+  right: 1rem;
+  z-index: 1;
+  display: block;
+  overflow: visible;
+  > li {
+    height: 2.85em;
+  }
+}
+
+h2 {
+  margin: -1.5em 0 0 0;
+  padding: 0 0 0 1rem;
+  font-size: 2rem;
+  line-height: 1.5;
+  position: relative;
+  //z-index: 2;
+  span {
+    /*255px corresponds to min-width of header > a */
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    min-width: 255px;
+    width: calc(215px + (160) * (100vw - 280px) / (667 - 280));
+  }
+}
+
+section,
+section img,
+.touchevents body {
+  margin: 0;
+}
+
+section > label {
+  display: block;
+  width: 100%;
+}
+section img {
+  border-radius: 0;
+  border-width: 0;
+  box-shadow: none;
+  width: 100%;
+}
+
+section article p {
+    > img {
+      float: left;
+      margin: 0 3px 0 0;
+      width: auto;
+      &.right {
+        float: right;
+        margin: 0 0 0 3px;
+      }
+    }
+    > a.left, a.right, a.none {
+      max-width: 1.2em;
+      font-size: 1.2em;
+      float: left; 
+      margin: 0;
+      > img {
+        float: none;
+        width: 100%;
+        display: block;
+        margin:0;
+      }
+      &:hover{
+        background-color: white;
+      }
+    }
+    > a.right {
+      float:right;
+      margin: 0 0 0 3px;
+    }
+    > a.none {
+      float:none;
+      display: inline-block;
+    }
+
+  }
+/*width reqd, other properties reqd in no-js scenario; */
+section > img {
+  //direct children to allow occasional use of inline images
+  /* explicitly set float to none in case browser doesn't support flex/grid*/
+  float: none;
+  width: 100%;
+}
+header nav > ul a,
+header nav > ul > li {
+  display: block;
+}
+header nav > ul > li {
+  height: 0px;
+  line-height: 2.7;
+  transition: height 0.9s ease-out;
+}
+
+footer {
+  width: 100%;
+  margin: 0;
+  padding: 2.1em 0 0;
+  @include flexy(wrap);
+  align-items: end;
+  > div {
+    min-width: none;
+    max-width: none;
+    padding: 0.3em;
+    a {
+      display: block;
+      img {
+        width: 100%;
+        display: block;
+      }
+    }
+    &#footer_girl {
+      @include flex(4, 1, 1em);
+    }
+    &#footer_boy {
+      @include flex(1, 1, 1em);
+    }
+  }
+  > a {
+    display: block;
+    width: 100%;
+    padding: 0 0.3em;
+    @include flex(1, 1, 100%);
+  }
+}
+
+#main_nav {
+  /*so that menu is relative to header*/
+  position: static;
+  width: 100%;
+}
+.menu {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.read-more-trigger:before {
+  display: block;
+}
+
+section.ptrt > img {
+  margin: 1rem 0 0.25rem 1rem;
+  width: calc(150px + (60) * (100vw - 320px) / (667 - 320));
+}
+/*first section is shown by default in no-js scenario */
+/*in no-js img, "labels" and articles are siblings in js all other elements are children of article*/
+header ul ul,
+.read-more-state ~ article,
+section:first-child .read-more-state:checked ~ article,
+.js section article > *,
+.no-js .override section > article > h3 {
+  @include hide;
+}
+.js section article > img,
+input.read-more-state ~ img,
+section:first-child input.read-more-state:checked ~ img {
+  @include hide(-99em);
+  color: purple;
+}
+
+section:first-child .read-more-state ~ article,
+section:first-child .read-more-state ~ img,
+.read-more-state:checked ~ article,
+.read-more-state:checked ~ img,
+.no-js section:first-child article > *,
+.js section.active article > *,
+.js .override section > article > h3 {
+  @include show;
+}
+
+section.portrait {
+  display: block;
+  img {
+    float: right;
+    width: 50%;
+    margin: 0 0 1em 1em;
+    //margin-top:  calc(40px - (40) * (100vw - 751px) / (1024 - 751));
+  }
+}
+
+@media screen and (min-width: 320px) {
+  .wrap > header {
+    > a {
+      margin: 0 0 0 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+  section.ptrt article img {
+    width: 9rem;
+  }
+  section.ptrt article p:first-of-type {
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  header nav > ul > li {
+    line-height: 2.8;
+  }
+}
+@media screen and (min-width: 480px) {
+  h2 {
+    margin: -2em 0 0 0;
+    line-height: 2;
+  }
+}
+//remove border's above when in production
+.no-js #logo,
+.no-js svg {
+  @include hide;
+}
+
+@media screen and (min-width: 575px) {
+  html {
+    &.no-js section.portrait {
+      @include flexy(wrap);
+      align-items: start;
+      gap: 0.8em;
+      .read-more-trigger {
+        @include flex(1, 1, 100%);
+      }
+      article {
+        @include flex(3, 1, 1em);
+      }
+      img {
+        @include flex(1, 1, 1em);
+        order: 3;
+        width: 100%;
+        margin: 0;
+      }
+    }
+    &.js section.portrait {
+      display: block;
+      article {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: auto 1fr 1fr 1fr 1fr;
+        row-gap: 1em;
+        column-gap: 1em;
+        p {
+          grid-row: 3/4;
+          grid-column: 1/6;
+          &:first-of-type {
+            grid-row: 2/3;
+          }
+        }
+        h3 {
+          grid-row: 1/2;
+          grid-column: span 8;
+        }
+        img {
+          grid-row: span 4;
+          grid-column: 6/9;
+          width: 100%;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobilepx) {
+  p {
+    margin: 0 0.8em 0.5em;
+  }
+  article p:first-of-type {
+    margin: 0.5em 0.8em;
+  }
+}

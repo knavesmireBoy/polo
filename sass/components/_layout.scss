@@ -1,0 +1,629 @@
+a > svg {
+  border: solid 0 yellow;
+  margin: 0;
+}
+
+@media only screen and (min-width: $mobilepx) {
+  .no-js #logo,
+  .no-js svg {
+    @include show;
+  }
+
+  main {
+    overflow: hidden;
+    margin: 0.2em 0 0em;
+    padding: 0 2em;
+  }
+  .override section {
+    & > article,
+    & > img,
+    h3 {
+      @include show;
+      background-color: transparent;
+    }
+    h3:after {
+      content: ".";
+      font-size: 1em;
+      color: brown;
+    }
+    p:first-of-type {
+      margin: 0;
+    }
+  }
+
+  section > img {
+    float: right;
+    margin: 0 0 0 5px;
+    z-index: 1;
+  }
+
+  section > input,
+  nav > input {
+    cursor: pointer;
+    position: absolute;
+    left: -9999px;
+  }
+  section:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  main.override section {
+    article > * {
+      @include show;
+    }
+    & > label {
+      @include hide;
+    }
+
+    &.portrait {
+      @include flexy;
+      align-items: start;
+      .js & {
+        flex-direction: row-reverse;
+      }
+      &:nth-child(even) {
+        flex-direction: row;
+        img {
+          order: unset;
+          margin: 0 2em 0 0;
+        }
+      }
+
+      article {
+        display: block;
+        @include flex(4, 1, 1em);
+        p:last-child {
+          margin: 0.8em 0 0;
+        }
+      }
+      img {
+        @include flex(1, 1, 1em);
+        width: 1%;
+      }
+    }
+  }
+
+  .menu {
+    @include hide;
+  }
+  .no-js .override section input.read-more-state {
+    ~ article,
+    & ~ article > h3,
+    ~ img {
+      position: relative;
+      left: 0;
+    }
+  }
+
+  .wrap,
+  footer {
+    max-width: 1280px;
+  }
+
+  .wrap > header {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    > a {
+      box-sizing: border-box;
+      width: 56%;
+      min-width: 40em;
+      h1:first-of-type {
+        background-size: contain;
+        padding: 0 0 11.436% 0;
+        padding: 0;
+        margin: 1.3em 0 3.7em;
+        margin: 0;
+      }
+    }
+    nav > ul {
+      position: relative;
+      left: 0;
+      width: 100%;
+      @include flexy;
+      right: 0;
+      overflow: visible;
+      > li {
+        width: 100%;
+        @include flex(2, 1, 1em);
+        height: auto;
+        &:nth-child(-n + 5) {
+          @include flex(3, 1, 1em);
+        }
+        &:nth-child(1) {
+          @include flex(2, 1, 1em);
+        }
+        &:nth-child(3) {
+          @include flex(4, 1, 1em);
+        }
+      }
+    }
+  }
+  header {
+    h1 {
+      padding: 0;
+
+      > a {
+        top: 0;
+      }
+    }
+  }
+
+  h2:nth-of-type(1) {
+    font-size: calc(2.5em + (6) * (100vw - 751px) / (1260 - 751));
+    line-height: calc(1.7em + (6) * (100vw - 751px) / (1260 - 751));
+    padding: 1px 0;
+    margin: 2em 0 0;
+    border-width: 0;
+    text-align: left;
+    span {
+      background-color: white;
+      background-image: url(../images/dev/sub_polo.png);
+      width: 100%;
+      text-align: left;
+      text-indent: 2.5em;
+    }
+  }
+  h3 {
+    font-size: 1.6rem;
+    border-width: 0;
+    padding: 0;
+  }
+
+  section {
+    margin: 1em 0;
+    &:first-child {
+      margin: 2em 0 1em;
+    }
+    &:nth-child(odd) > img {
+      margin: 1em 0 1em 3em;
+      float: right;
+      overflow: hidden;
+    }
+    > img {
+      margin: 1em 3em 1em 0;
+      float: left;
+      width: 40.1%;
+      width: calc(340px + (30) * (100vw - 751px) / (1024 - 751));
+    }
+  }
+  .wrap {
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  #main_nav {
+    position: relative;
+    /*stacking*/
+  }
+  #nav {
+    @include show;
+  }
+
+  footer {
+    @include flexy(wrap);
+    align-items: end;
+    div {
+      margin: 0 0.7em;
+      z-index: 1;
+      &#footer_girl {
+        @include flex(5, 4, 1em);
+        min-width: 25em;
+        display: grid;
+        flex-wrap: wrap;
+        grid-template-columns: 12em 1fr;
+        a:first-child {
+          visibility: visible;
+          width: auto;
+          grid-row: 1/2;
+        }
+        a:nth-child(2),
+        a:nth-child(3) {
+          grid-row: 2/3;
+        }
+        a:nth-child(3) {
+          grid-column: 2/3;
+        }
+      }
+
+      &#footer_boy {
+        @include flex(4, 1, 6em);
+        @include flexy;
+        align-items: end;
+        max-width: 20em;
+
+        & > div {
+          margin: 0 -7em 0 0;
+          @include flex(1, 1, 1em);
+        }
+        & > a {
+          @include flex(3, 1, 1em);
+          @include show;
+          max-width: 20em;
+        }
+        margin: 0 0 0.3em;
+      }
+    }
+    > a {
+      @include flex(1, 1, 100%);
+      grid-row: 2/3;
+      grid-column: span 5;
+      text-align: right;
+      padding: 0 0.6em 0.4em 0;
+      display: block;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  .multi > img:nth-of-type(n + 2) {
+    clear: both;
+  }
+  .multi > video:nth-of-type(n + 2) {
+    clear: both;
+  }
+
+  header+h2:nth-of-type(1) {
+    margin: 0;
+    line-height: 2.2;
+    border-radius: 0px;
+    border-bottom: solid 1px white;
+    color: white;
+    box-sizing: border-box;
+    background-color: hsl(60, 57%, 40%);
+    background-size: auto;
+    background-repeat: repeat;
+    width: auto;
+    box-shadow: 0px 0px 10px 4px rgb(48, 53, 1);
+    span {
+      background-color: transparent;
+      border-radius: 0px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .override section {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 1.5em;
+    @include flexy;
+    align-items: start;
+    overflow: hidden;
+    column-gap: 2em;
+    border-radius: 8px;
+    margin: 0 0 1.5em 0;
+    article:nth-child(n + 1) {
+      margin: 0;
+      padding: 0 0 0 2em;
+      border: dotted 1px olive;
+      border-width: 0 0 0 2px;
+      border-image: repeating-linear-gradient(
+        to top,
+        olive 0,
+        olive 3px,
+        3px,
+        transparent 6px,
+        brown 6px,
+        brown 9px,
+        transparent 9px,
+        transparent 12px
+      );
+      border-image-slice: 1;
+      border-image-width: 0 0 0 3px;
+
+      margin: 0 auto 0;
+      align-self: stretch;
+    }
+    &:first-child {
+      margin-top: 2em;
+    }
+    &:nth-child(even) > img {
+      margin: 0;
+    }
+    &:after {
+      content: none;
+    }
+    &:nth-child(even) article {
+      column-gap: 0;
+    }
+    &:nth-child(odd) {
+      padding: 1.5em 1.5em 1.5em 2.5em;
+    }
+  }
+
+  main.override:first-of-type {
+    section {
+      &.multi {
+        display: grid;
+        align-items: start;
+        row-gap: 1em;
+        column-gap: 2em;
+        grid-template-rows: auto auto;
+        grid-template-columns: 5fr 2fr;
+       > img {
+          grid-column: 2/3;
+          margin: 0;
+          width: 100%;
+          max-width: 100%;
+          &:first-of-type {
+            grid-row: 1/2;
+          }
+          &:last-of-type {
+            grid-row: 2/3;
+          }
+        }
+        > article {
+          display: block;
+          grid-row: span 2;
+          grid-column: 1/2;
+        }
+      }
+      &.portrait {
+        padding: 1.5em 1.5em 1.5em 2.5em;
+        background: #262626 url(../images/dev/swirl.png) center/5%;
+        background-color: hsl(120, 100%, 10%);
+        border-radius: 8px;
+        padding: 1.5em;
+        column-gap: 2em;
+        h3 > a,
+        p {
+          color: white;
+        }
+        img:first-of-type {
+          grid-column: 1/2;
+          order: unset;
+        }
+        article {
+          @include flex(5, 1, 1em);
+          p a:link,
+          p a:visited {
+            color: $h2;
+          }
+        }
+        &:nth-child(even) {
+          flex-direction: row;
+          img {
+            margin: 0;
+          }
+          article {
+            order: 4; //overide img order:3
+          }
+        }
+      }
+    }
+  }
+  div.public.wrap section:nth-child(even).multi {
+    grid-template-columns: 2fr 5fr;
+    column-gap: 2em;
+    > article {
+      grid-column: 2/3;
+    }
+    > img {
+      grid-column: 1/2;
+      margin: 0 2em 0 0;
+    }
+  }
+
+  section.odd,
+  section:nth-child(odd) {
+    flex-direction: row-reverse;
+  }
+  section article {
+    @include flex(4, 1, 1em);
+  }
+  section > img:first-of-type {
+    margin: 0;
+    overflow: hidden;
+    max-width: 40%;
+  }
+  section.portrait > img:first-of-type {
+    max-width: 25%;
+  }
+} //1024
+
+li.current > a:link,
+li.current > a:visited {
+  color: white;
+}
+
+#logo {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.wrap ul ul a:link,
+.wrap ul ul a:visited {
+  color: #306;
+  color: hsl(270, 100%, 20%);
+}
+.wrap ul ul a:hover,
+.wrap ul ul a:active {
+  background-color: white;
+  border-color: #900;
+}
+
+header ul ul {
+  font: normal 0.9em/1.4 Arial, Verdana, Helvetica, serif;
+  padding: 0 0 1em;
+}
+
+.wrap ul ul li {
+  border: solid 1px transparent;
+  border-width: 3px 1px 0;
+  display: inline-block;
+}
+.wrap ul ul a:link,
+.wrap ul ul a:visited {
+  background-color: #b6b686;
+  background-color: hsl(60, 25%, 62%);
+  border-color: #999 #000 #000 #999;
+  padding: 0 0.7em;
+}
+
+#home #nav li:nth-child(1):hover ul,
+#trust #nav li:nth-child(2):hover ul,
+#scholars #nav li:nth-child(3):hover ul,
+#place #nav li:nth-child(4):hover ul,
+#stay #nav li:nth-child(5):hover ul,
+#polo #nav li:nth-child(6):hover ul {
+  left: auto;
+}
+#medley #nav li:nth-child(7):hover ul,
+#enquiries #nav li:nth-child(8):hover ul {
+  left: auto;
+  right: 0px;
+}
+
+#bond #nav li:nth-child(10):hover ul {
+  left: auto;
+  right: 0px;
+}
+
+nav li.current:hover ul,
+nav li.current.sfhover ul {
+  left: 0;
+}
+
+header ul ul {
+  @include hide;
+  top: auto;
+}
+.js #admin #logo {
+  @include show;
+}
+
+@media only screen and (min-width: $superpx) {
+  .wrap > header > a {
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 1281px) {
+  .wrap,
+  footer {
+    max-width: 1000em;
+  }
+}
+
+@media screen and (min-width: 1260px) {
+  main.override {
+    section.portrait img:first-of-type {
+      order: unset;
+      width: auto;
+    }
+    section:first-child p:after {
+      content: none;
+    }
+  }
+}
+/*
+//multi (ie two) will have to alter for more than two, or use JS to wrap images in a div and use flex column
+//OR perhaps override multi class on the pages/article that require it
+@media screen and (max-width: 749px) {
+  @supports (column-gap: 1em) {
+    div.public.wrap {
+      section.multi {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1em;
+        label.read-more-trigger {
+          grid-row: 1/2;
+          grid-column: 1/3;
+        }
+        img {
+          max-width: 100%; //override general setting
+          //width: 100%;
+          margin: 0;
+          grid-row: 2/3;
+          //height: 100%;
+          align-self: self-start;
+          &:first-of-type {
+            grid-column: 1/2;
+          }
+          &:last-of-type {
+            grid-column: 2/3;
+          }
+        }
+        article {
+          grid-row: 3/4;
+          grid-column: 1/3;
+          p:first-of-type {
+            margin: 0 0.8em 0.5em;
+          }
+        }
+      }
+    }
+  }
+
+  .js section.multi {
+    display: block;
+    article {
+      display: grid;
+      gap: 0.5em;
+      grid-template-columns: repeat(2, 1fr);
+      h3 {
+        grid-row: 1/2;
+        grid-column: 1/3;
+      }
+      p {
+        grid-column: span 2;
+        margin: 0 0.8em;
+        &:last-child {
+          margin: 0 0.5em 0.8em;
+        }
+      }
+      img {
+        grid-row: 2/3;
+        //height: 100%;
+        margin: 0;
+        align-self: self-start;
+        &:first-of-type {
+          grid-column: 2/3;
+        }
+        &:last-of-type {
+          grid-column: 1/2;
+        }
+      }
+    }
+  }
+  div.wrap {
+    @include flexy;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    > * {
+      @include flex(1, 0, 1em);
+    }
+  }
+}
+*/
+
+//flexible alternative to the above fixed grid layout
+@media screen and (max-width: 749px) {
+  div.public.wrap {
+    section.multi {
+      @include flexy(wrap);
+      article {
+        @include flex(1, 0, 100%);
+      }
+      img {
+        display: block;
+        max-width: 50%;
+        align-self: flex-start;
+        @include flex(1, 1, 1em);
+      }
+      .js & {
+        article {
+          @include flexy(wrap);
+          justify-content: space-between;
+          img {
+            max-width: 49%;
+          }
+        }
+      }
+    }
+  }
+}

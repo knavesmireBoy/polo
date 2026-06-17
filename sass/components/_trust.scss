@@ -1,0 +1,15 @@
+#trust {
+  background: white;
+}
+
+
+@media screen and (min-width: $mobilepx) {
+  #trust {
+    h2 {
+      background-color: hsl(82, 67%, 18%);
+      span {
+        background-image: url(../images/dev/sub_trust.png);
+      }
+    }
+  }
+}

@@ -1,0 +1,238 @@
+#enquiries {
+  #post {
+    form {
+      text-align: center;
+      font-family: Optima, Arial, Helvetica, Verdana, sans-serif;
+      border: solid 1px #000;
+      padding: 0.5em 0;
+      border-radius: 10px;
+      box-sizing: border-box;
+      background-color: $articlehead;
+      fieldset {
+        text-align: left;
+        display: block;
+        font-size: 1em;
+        padding: 2% 2% 0;
+        border: solid 1px $articlehead;
+        border-width: 1px 0 0;
+        position: relative;
+        legend {
+          font-weight: bold;
+          background-color: rgba(250, 250, 140, 0.5);
+          border: solid 1px white;
+          font-size: 1.2em;
+          padding: 0.1em 1em;
+          border-radius: 8px;
+        }
+        label,
+        input {
+          width: 100%;
+          border-radius: 8px;
+          border: solid 1px white;
+        }
+        label {
+          text-transform: uppercase;
+          border-width: 0;
+          font: normal 0.875em / normal Arial, sans-serif;
+          color: hsl(60, 50%, 20%);
+          color: black;
+        }
+        &[for="email"]:before,
+        &[for="name"]:before {
+          content: "*";
+          color: white;
+        }
+        input {
+          width: 100%;
+        }
+        textarea {
+          border-radius: 8px;
+          height: 7em;
+          width: 100%;
+        }
+
+        input[type="submit"] {
+          width: auto;
+          margin: 0.1em auto;
+          padding: 0.1em 0.5em;
+          border-radius: 2px;
+          border-width: 0;
+          background-color: rgba(255, 255, 255, 0.25);
+        }
+        input[type="submit"]:hover {
+          background-color: rgba(255, 255, 255, 0.75);
+        }
+      }
+    }
+
+    #name,
+    #comments,
+    #email {
+      background-color: hsl(62, 50%, 75%);
+    }
+
+    & .warning {
+      &.name {
+        label[for="name"] {
+          color: brown;
+        }
+      }
+      &.email {
+        label[for="email"] {
+          color: brown;
+        }
+      }
+      &.comments {
+        label[for="comments"] {
+          color: brown;
+        }
+      }
+      &.name #name,
+      &.comments #comments,
+      &.email #email,
+      .empty #name,
+      .empty #email,
+      .empty #comments {
+        background-color: hsla(0, 59%, 41%, .25);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $mobilepx) {
+  #enquiries {
+    .override section#post {
+      background: #262626 url(../images/dev/swirl.png) center/5%;
+      background-color: hsl(120, 100%, 10%);
+      padding: 1.5em 0 1.5em 1.5em;
+      border-radius: 8px;
+      h3 > a {
+        color: white;
+      }
+
+      #contactarea > div {
+        @include flexy;
+        align-items: end;
+
+        form {
+          border: solid 1px white;
+          fieldset:first-child {
+            display: grid;
+            padding: 2%;
+            gap: 0.5em;
+            grid-template-columns: repeat(16, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            align-items: center;
+            legend {
+              white-space: nowrap;
+            }
+          }
+          fieldset input {
+            width: 100%;
+          }
+
+          label {
+            grid-column: span 1;
+            width: 100%;
+            font-weight: bold;
+          }
+
+          #email {
+            grid-column: span 15;
+          }
+          #phone,
+          #postcode {
+            grid-column: span 5;
+          }
+          #name,
+          #country {
+            grid-column: span 9;
+          }
+          #addr1,
+          #addr2,
+          #addr3,
+          #addr4 {
+            grid-column: span 7;
+          }
+        }
+        #cat {
+          @include show;
+          border: solid 1px white;
+        }
+        input#dog {
+          @include show;
+        }
+        input[type="submit"] {
+          @include hide;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $mobilepx) {
+  #enquiries {
+    #post {
+      form {
+        background-color: hsla(60, 100%, 75%, 0.5);
+        fieldset:last-of-type {
+          display: grid;
+          grid-template-columns: repeat(8, 1fr);
+          column-gap: 1em;
+          padding: 2%;
+          align-items: end;
+          textarea {
+            grid-column: span 6;
+            width: 100%;
+          }
+          input {
+            grid-column: span 2;
+            width: 100%;
+            &[type="submit"] {
+              @include hide;
+            }
+
+            &#dogs {
+              @include show;
+            }
+          }
+        }
+      }
+      #name,
+      #comments,
+      #email {
+        background-color: rgba(255, 255, 255, 0.75);
+      }
+
+      .warning {
+        &.name {
+          label[for="name"] {
+            color: white;
+          }
+        }
+        &.email {
+          label[for="email"] {
+            color: white;
+          }
+        }
+        &.comments {
+          label[for="comments"] {
+            color: white;
+          }
+        }
+        &.name #name,
+        &.comments #comments,
+        &.email #email,
+        .empty #name,
+        .empty #email,
+        .empty #comments {
+          background-color: hsl(62, 60%, 66%);
+        }
+      }
+    }
+  }
+}
+
+input[disabled="disabled"] {
+  opacity: 0.5;
+}

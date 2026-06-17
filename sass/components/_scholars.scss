@@ -1,0 +1,32 @@
+#scholars {
+  background: white;
+}
+@media only screen and (max-width: 505px) {
+  #scholars {
+    .override section:nth-child(5) h3,
+    .override section:nth-child(5) label {
+      line-height: 1.2;
+    }
+  }
+}
+
+#scholars li:nth-child(3):hover ul {
+  left: -9999px;
+}
+
+#scholars li:nth-child(3):hover ul {
+  left: 0;
+}
+
+
+
+@media only screen and (min-width: $mobilepx) {
+  #scholars {
+    h2 {
+      background-color: hsl(37, 94%, 25%);
+      span {
+        background-image: url(../images/dev/sub_scholars.png);
+      }
+    }
+  }
+}
