@@ -3,11 +3,6 @@ require_once 'config.php';
 include FUNCTIONS;
 //phpinfo();
 
-dump('PoloAfrica\PoloAfricaWebsite');
-
-
-/*
-
 $layout = 'pagelayout.html.php';
 $route = fixUri();
 $uri = empty($route) ? '' : implode('/', $route);
@@ -16,7 +11,11 @@ $home = 'home';
 $posts = ['assign', 'create', 'contact', 'edit', 'login', 'manage', 'permissions', 'register', 'retrieve', 'retire', 'unarchive', 'relocate', 'swap'];
 $pp = $pages[$route[0]] ?? '';
 $website = new \PoloAfrica\PoloAfricaWebsite($pp);
+
+
+dump($website);
+
+
 $entryPoint = new \Ninja\EntryPoint($website, $posts);
 $layoutVariables = $entryPoint->run($uri, $_SERVER['REQUEST_METHOD'], 'public', $home);
 echo $entryPoint->loadTemplate($layout, $layoutVariables);
-*/
