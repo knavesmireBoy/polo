@@ -3,7 +3,7 @@ require_once 'config.php';
 include FUNCTIONS;
 //phpinfo();
 
-exit('PoloAfrica\PoloAfricaWebsite');
+dump('PoloAfrica\PoloAfricaWebsite');
 
 
 /*
