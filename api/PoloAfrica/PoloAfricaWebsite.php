@@ -33,7 +33,7 @@ class PoloAfricaWebsite implements Website
     }
     public function __construct(private $pp)
     {
-       // $pwd = $_ENV['MYSQL_PASSWORD'];
+        // $pwd = $_ENV['MYSQL_PASSWORD'];
         //$user = $_ENV['MYSQL_USER'];
         //$dbname = $_ENV['MYSQL_DATABASE'];
         //$host = $_ENV['MYSQL_DATABASE'];
@@ -48,6 +48,9 @@ class PoloAfricaWebsite implements Website
         SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
         */
 
+        $dbname = 'polafrica';
+        $user = 'root';
+        $pwd = 'covid19krauq';
 
         try {
             if (DBSYSTEM === 'postgres') {
@@ -79,10 +82,6 @@ class PoloAfricaWebsite implements Website
                 $pdo->exec('SET search_path TO uploads');
                 // $pdo->exec('ALTER USER user SET search_path TO uploads');
             } else {
-
-                $dbname = 'polafrica';
-                $user = 'root';
-                $pwd = 'covid19krauq';
                 $pdo = new \PDO(
                     "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
                     $user,
@@ -98,18 +97,17 @@ class PoloAfricaWebsite implements Website
             exit();
         }
 
-
-
-
-
-
+        /*
         $this->pdo = new \PDO(
             //'mysql:host=localhost;dbname=polafrica;charset=utf8mb4',
             "mysql:host=polodb;dbname=$dbname;charset=utf8mb4",
             $user,
             $pwd
         );
+*/
 
+        dump($pdo);
+        $this->pdo = $pdo;
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo->exec('SET NAMES "utf8"');
         $this->userTable = new DatabaseTable($this->pdo, 'user', 'id', '\PoloAfrica\Entity\User', [&$this->userTable]);
