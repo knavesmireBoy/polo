@@ -59,7 +59,6 @@ class PoloAfricaWebsite implements Website
                 preg_match('/[^:]+:\/\/[^:]+:([^@]+)@(.+)/', $env['DATABASE_URL'] ?? '', $matches);
                 $pwd = $matches[1] ?? null;
                 $connect = $matches[2] ?? null;
-
                 // dump([$pwd, $connect]);
 
                 if (!$pwd) {
@@ -78,39 +77,33 @@ class PoloAfricaWebsite implements Website
                     $params['sslmode']
                 );
 
-                $pdo = new \PDO($db);
-                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                $pdo->exec('SET search_path TO uploads');
+                $this->pdo = new \PDO($db);
+                $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $this->pdo->exec('SET search_path TO polafrica');
                 // $pdo->exec('ALTER USER user SET search_path TO uploads');
             } else {
-                $pdo = new \PDO(
+
+                $this->pdo = new \PDO(
                     "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
                     $user,
                     $pwd
                 );
-                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                $pdo->exec('SET NAMES "utf8"');
+                $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $this->pdo->exec('SET search_path TO polafrica');
+                //$pdo->exec('SET NAMES "utf8"');
             }
         } catch (\PDOException $e) {
             $output = 'Unable to connect to the database server: ' . $e->getMessage();
             $error = $output;
-            include TEMPLATE . 'output.html.php';
+           // include TEMPLATE . 'output.html.php';
             exit();
         }
 
-        /*
-        $this->pdo = new \PDO(
-            //'mysql:host=localhost;dbname=polafrica;charset=utf8mb4',
-            "mysql:host=polodb;dbname=$dbname;charset=utf8mb4",
-            $user,
-            $pwd
-        );
-*/
 
-        dump([$env, $db]);
-        $this->pdo = $pdo;
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $this->pdo->exec('SET NAMES "utf8"');
+    
+       // $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+       // $this->pdo->exec('SET NAMES "utf8"');
+
         $this->userTable = new DatabaseTable($this->pdo, 'user', 'id', '\PoloAfrica\Entity\User', [&$this->userTable]);
         $this->authentication = new Authentication($this->userTable, 'email', 'password');
         $this->pagesTable = new DatabaseTable($this->pdo, 'pages', 'id', '\PoloAfrica\Entity\Page', [&$this->slotTable]);
