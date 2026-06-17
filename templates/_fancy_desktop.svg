@@ -1,0 +1,17 @@
+<svg id="logo" viewBox="0 0 340 60">
+    <filter id="dropshadow" >
+        <feFlood flood-color="#ed0" flood-opacity=".45" result="flood"></feFlood>
+        <feComposite in="flood" in2="SourceGraphic" operator="in" result="comp"></feComposite>
+        <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"></feGaussianBlur><!-- stdDeviation is how much to blur -->
+        <feOffset dx="1.5" dy="1.5" in="blur" result="offsetblur"></feOffset> <!-- how much to offset -->
+         <feComponentTransfer>
+             <feFuncA type="linear" slope="0.9"></feFuncA> <!-- slope is the opacity of the shadow -->
+        </feComponentTransfer>
+        <feComposite operator="out" in="offsetblur" in2="SourceGraphic" result="bev"></feComposite>
+        <feMerge>
+            <feMergeNode></feMergeNode> <!-- this contains the offset blurred image -->
+            <feMergeNode in="comp"></feMergeNode> <!-- this contains the offset blurred image -->
+            <feMergeNode in="comp"></feMergeNode> <!-- this contains the offset blurred image -->
+        </feMerge></filter>
+    <use xlink:href="#polologo"></use>
+</svg>

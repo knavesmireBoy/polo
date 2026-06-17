@@ -7,6 +7,9 @@ ini_set('post_max_size', '125M');
 ini_set('pcre.jit', false);
 date_default_timezone_set( "Europe/London" );
 
+
+define("DBSYSTEM", 'postgres');
+
 define("NINJA", 'Ninja/');
 define("CONTROLLERS", 'PoloAfrica/controllers/');
 define("FUNCTIONS", './includes/functions.php');

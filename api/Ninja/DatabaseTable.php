@@ -23,7 +23,7 @@ class DatabaseTable
     private function insert(array $values)
     {
         //make sure no spaces in table name: `user `
-
+        $seq = null;
         $query = 'INSERT INTO `' . $this->table . '` (';
         //$query = "INSERT INTO $tbl (";
         foreach ($values as $key => $value) {
@@ -38,11 +38,19 @@ class DatabaseTable
         }
         $query = rtrim($query, ',');
         $query .= ')';
-        $stmt = $this->pdo->prepare($query);
 
-        $stmt->execute($values);
-        // $res = doPreparedQuery($stmt, $values);
-        return $this->pdo->lastInsertId();
+        if (DBSYSTEM === 'postgres') {
+            $query = preg_replace('/`/', '', $query);
+            $query .= ' RETURNING ' . $this->primaryKey;
+            $seq = $this->table . '_' . $this->primaryKey . '_seq';
+        }
+        $stmt = $this->pdo->prepare($query);
+        if ($seq) {
+            return $stmt->execute($values);
+        } else {
+            $stmt->execute($values);
+            return $this->pdo->lastInsertId();
+        }
     }
 
     private function updatejoin(array $values, $oldkey)
@@ -60,6 +68,11 @@ class DatabaseTable
         $query .= ' WHERE `' . $k . '` = :pk AND `' . $key . '` = :kk';
         $values['pk'] = $values[$k];
         $values['kk'] = $oldkey;
+
+        if (DBSYSTEM === 'postgres') {
+            $query = preg_replace('/`/', '', $query);
+        }
+
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($values);
     }
@@ -73,6 +86,10 @@ class DatabaseTable
         $query = rtrim($query, ',');
         $query .= ' WHERE `' . $this->primaryKey . '` = :pk';
         $values['pk'] = $values[$k];
+
+        if (DBSYSTEM === 'postgres') {
+            $query = preg_replace('/`/', '', $query);
+        }
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($values);
     }
@@ -80,15 +97,18 @@ class DatabaseTable
     {
         $this->pdo = $pdo;
         $this->table = $table;
-        $this->primaryKey = $primaryKey;
+        $this->primaryKey = strpos($primaryKey, ',') ? null : $primaryKey;
         $this->className = $className;
         $this->constructorArgs = $constructorArgs;
     }
 
     public function delete($field, $v)
     {
-        $stmt = $this->pdo->prepare('DELETE FROM `' . $this->table . '` WHERE `' . $field . '` = :value');
-
+        $query = 'DELETE FROM `' . $this->table . '` WHERE `' . $field . '` = :value';
+        if (DBSYSTEM === 'postgres') {
+            $query = preg_replace('/`/', '', $query);
+        }
+        $stmt = $this->pdo->prepare($query);
         $values = [
             ':value' => $v
         ];
@@ -98,6 +118,15 @@ class DatabaseTable
     public function findAll(?string $orderBy = null, int $limit = 0, int $offset = 0, $mode = \PDO::FETCH_CLASS)
     {
         $query = 'SELECT * FROM ' . $this->table;
+
+        /*
+        if ($this->table === 'usr') {
+            $query = 'SELECT * FROM ';
+            $query .= orderByLastName2($this->table, DBSYSTEM);
+        }
+            */
+
+
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy;
         } else {
@@ -109,6 +138,11 @@ class DatabaseTable
         if ($offset > 0) {
             $query .= ' OFFSET ' . $offset;
         }
+
+        if (DBSYSTEM === 'postgres') {
+            $query = preg_replace('/`/', '', $query);
+        }
+
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         if ($mode === \PDO::FETCH_CLASS) {
@@ -145,6 +179,7 @@ class DatabaseTable
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . $op;
         $parameters = [];
+       // $value = $value ? $value : 1;
         if (!is_null($value)) {
             $parameters = [
                 'value' => $value
@@ -172,43 +207,47 @@ class DatabaseTable
 
     public function save(array $record, mixed $arg = null)
     {
-            $entity = new $this->className(...$this->constructorArgs);
-            //force insert
-            if ($arg && is_bool($arg)) {
-                return $this->insert($record);
-            }
-            if ($arg && is_numeric($arg)) {
-                return $this->updatejoin($record, $arg);
-            }
-
-            if (empty($record[$this->primaryKey])) {
-                unset($record[$this->primaryKey]);
-                $insertId = $this->insert($record);
-                $entity->{$this->primaryKey} = $insertId;
-            } else {
-                $this->update($record);
-            }
-            foreach ($record as $key => $value) {
-                if (!empty($value)) {
-                    if ($value instanceof \DateTime) {
-                        $value = $value->format('Y-m-d H:i:s');
-                    }
-                    $entity->$key = $value;
-                }
-            }
+        $entity = new $this->className(...$this->constructorArgs);
+        if (empty($record)) {
             return $entity;
-    }
+        }
+        //force insert
+        if ($arg && is_bool($arg)) {
+            return $this->insert($record);
+        }
+        if ($arg && is_numeric($arg)) {
+            return $this->updatejoin($record, $arg);
+        }
 
-    public function getEntity()
+        if (empty($record[$this->primaryKey])) {
+            unset($record[$this->primaryKey]);
+            $insertId = $this->insert($record);
+            $entity->{$this->primaryKey} = $insertId;
+        } else {
+            $this->update($record);
+        }
+        foreach ($record as $key => $value) {
+            if (!empty($value)) {
+                if ($value instanceof \DateTime) {
+                    $value = $value->format('Y-m-d H:i:s');
+                }
+                $entity->$key = $value;
+            }
+        }
+        return $entity;
+    }
+    //give access to functionality without an actual record
+    public function getEntity(string $classname = '')
     {
+        if ($classname) {
+            return new $classname(...$this->constructorArgs);
+        }
         return new $this->className(...$this->constructorArgs);
     }
 
-    public function setMinToNull1($table, $colname, $colval)
+    public function setEntity($classname)
     {
-        $query = "UPDATE $table INNER JOIN (SELECT min(id) AS target from $table where $colname = $colval) AS tmp ON tmp.target = id SET $colname = NULL";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
+        $this->className = $classname;
     }
 
     public function setMinToNull($colname, $colval)

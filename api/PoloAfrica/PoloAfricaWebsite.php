@@ -47,6 +47,58 @@ class PoloAfricaWebsite implements Website
         ALTER TABLE articles MODIFY content TEXT, CHARSET utf8mb4;
         SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
         */
+
+
+        try {
+            if (DBSYSTEM === 'postgres') {
+                $env = getenv();
+                preg_match('/[^:]+:\/\/[^:]+:([^@]+)@(.+)/', $env['DATABASE_URL'] ?? '', $matches);
+                $pwd = $matches[1] ?? null;
+                $connect = $matches[2] ?? null;
+
+                // dump([$pwd, $connect]);
+
+                if (!$pwd) {
+                    throw new \Exception('Unable to connect to the database server');
+                }
+                //note cannot get postgres drivers to work in home environment
+                // $params = ['host' => '127.0.0.1', 'port' => 5432, 'database' => 'uploads', 'user' => 'andrewjsykes', 'password' => 'covid19krauq'];
+                $params = ['host' => $connect, 'port' => 5432, 'database' => 'polafrica', 'user' => 'neondb_owner', 'password' => $pwd, 'sslmode' => 'require'];
+                $db = sprintf(
+                    "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
+                    $params['host'],
+                    $params['port'],
+                    $params['database'],
+                    $params['user'],
+                    $params['password'],
+                    $params['sslmode']
+                );
+
+                $pdo = new \PDO($db);
+                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $pdo->exec('SET search_path TO uploads');
+                // $pdo->exec('ALTER USER user SET search_path TO uploads');
+            } else {
+                $pdo = new \PDO(
+                    "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
+                    $user,
+                    $pwd
+                );
+                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $pdo->exec('SET NAMES "utf8"');
+            }
+        } catch (\PDOException $e) {
+            $output = 'Unable to connect to the database server: ' . $e->getMessage();
+            $error = $output;
+            include TEMPLATE . 'output.html.php';
+            exit();
+        }
+
+
+
+
+
+
         $this->pdo = new \PDO(
             //'mysql:host=localhost;dbname=polafrica;charset=utf8mb4',
             "mysql:host=polodb;dbname=$dbname;charset=utf8mb4",
@@ -302,7 +354,7 @@ class PoloAfricaWebsite implements Website
         $dirs = arrayDiff($files, $fs);
         $dirs = array_values(preg_grep("/^[^\.]/", $dirs));
 
-       // dump(tsb(2400, 14250, 9, .2));
+        // dump(tsb(2400, 14250, 9, .2));
 
         function foo($root, &$ret)
         {

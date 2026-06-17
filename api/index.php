@@ -1,7 +1,9 @@
 <?php
-//require_once 'config.php';
-//include FUNCTIONS;
-phpinfo();
+require_once 'config.php';
+include FUNCTIONS;
+//phpinfo();
+
+dump('PoloAfrica\PoloAfricaWebsite');
 
 
 /*

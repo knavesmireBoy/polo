@@ -1,0 +1,3 @@
+<article>
+  <?= $article->mdcontent; ?>
+</article>
