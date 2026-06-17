@@ -1,4 +1,5 @@
 <?php
+
 ini_set( "display_errors", true);
 //ini_set( "display_errors", false);
 ini_set('memory_limit', '1024M'); // or you could use 1G
@@ -12,7 +13,7 @@ define("DBSYSTEM", 'postgres');
 
 define("NINJA", 'Ninja/');
 define("CONTROLLERS", 'PoloAfrica/controllers/');
-define("FUNCTIONS", './includes/functions.php');
+define("FUNCTIONS", 'includes/functions.php');
 define("ENTITY", 'PoloAfrica/entity/');
 define("INCLUDES", 'includes/');
 define("MARKDOWN", 'Ninja/Markdown');
@@ -145,4 +146,5 @@ define("ENQUIRIES", '/enquiries/');
 define("PHOTOS",  '/gallery/display');
 
 
-include '../includes/autoload.php';
+
+include 'includes/autoload.php';
