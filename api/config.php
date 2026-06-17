@@ -9,6 +9,7 @@ ini_set('pcre.jit', false);
 date_default_timezone_set( "Europe/London" );
 
 
+
 define("DBSYSTEM", 'postgres');
 
 define("NINJA", 'Ninja/');
@@ -24,30 +25,30 @@ define("PAGES", 'pages/');
 define("WEBSITES", '../../');
 define("FILESTORE_DIR", '../../filestore/');
 
-define("CSS", '/resources/css/');
-define("JS", '/resources/js/');
-define("ASSETS", '/resources/assets/');
-define("RESOURCES", '/resources/');
-define("PDF_FILE", '/resources/images/dev/pdf_sq.png');
+define("CSS", './public/resources/css/');
+define("JS", '../public/resources/js/');
+define("ASSETS", '../public/resources/assets/');
+define("RESOURCES", '../public/resources/');
+define("PDF_FILE", '../public/resources/images/dev/pdf_sq.png');
 
-define("IMAGES", '/resources/images/articles/');
-define("DEV", '/resources/images/dev/');
+define("IMAGES", '../public/resources/images/articles/');
+define("DEV", '../public/resources/images/dev/');
 
-define("FILENOTFOUND", '/resources/images/dev/lost.png');
-define("VIDEO_MEDLEY", '/resources/video/medley/');
-define("VIDEOS", '/resources/video/');
+define("FILENOTFOUND", '../public/resources/images/dev/lost.png');
+define("VIDEO_MEDLEY", '../public/resources/video/medley/');
+define("VIDEOS", '../public/resources/video/');
 define ("HTTPREG", '/https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)/');
 
-//define("FILENOTFOUND", '/resources/images/dev/beatles-for-sale.jpg');
-//define("THUMBS", '/resources/images/articles/thumb/');
-//define("IMG", '/resources/images/');
+//define("FILENOTFOUND", './public/resources/images/dev/beatles-for-sale.jpg');
+//define("THUMBS", './public/resources/images/articles/thumb/');
+//define("IMG", './public/resources/images/');
 
-define("GALLERY", '/resources/images/gallery/');
-define("GALLERY_IMG", '/resources/images/gallery/fullsize/');
-define("GALLERY_THUMBS", '/resources/images/gallery/thumbs/');
-define("ARTICLE_IMG", '/resources/images/articles/fullsize/');
-define("ARTICLE_THUMB", '/resources/images/articles/thumb/');
-define("TRANSIT", 'resources/transit/');
+define("GALLERY", '../public/resources/images/gallery/');
+define("GALLERY_IMG", '../public/resources/images/gallery/fullsize/');
+define("GALLERY_THUMBS", '../public/resources/images/gallery/thumbs/');
+define("ARTICLE_IMG", '../public/resources/images/articles/fullsize/');
+define("ARTICLE_THUMB", '../public/resources/images/articles/thumb/');
+define("TRANSIT", '../resources/transit/');
 
 define("VIDEO_EXT", ['.mp4', '.ogv', '.webm', '.avi', '.mov']);
 define("VIDEO_CODECS", [

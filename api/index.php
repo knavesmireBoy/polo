@@ -1,6 +1,6 @@
 <?php
-require_once 'config.php';
-include FUNCTIONS;
+require_once __DIR__ . '/config.php';
+include_once FUNCTIONS;
 //phpinfo();
 
 $layout = 'pagelayout.html.php';
@@ -11,9 +11,6 @@ $home = 'home';
 $posts = ['assign', 'create', 'contact', 'edit', 'login', 'manage', 'permissions', 'register', 'retrieve', 'retire', 'unarchive', 'relocate', 'swap'];
 $pp = $pages[$route[0]] ?? '';
 $website = new \PoloAfrica\PoloAfricaWebsite($pp);
-
-
-dump($website);
 
 
 $entryPoint = new \Ninja\EntryPoint($website, $posts);

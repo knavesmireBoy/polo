@@ -854,8 +854,10 @@ function fileExists($file, $root = false)
 function isDir($file)
 {
     if ($file) {
+
         $i = strpos($file, '/');
-        $file = $i === 0 ? substr($file, 1) : $file;
+       // $file = $i === 0 ? substr($file, 1) : $file;
+
         return is_dir($file) ? $file : null;
     }
     return null;
