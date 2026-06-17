@@ -51,6 +51,7 @@ class PoloAfricaWebsite implements Website
         $dbname = 'polafrica';
         $user = 'root';
         $pwd = 'covid19krauq';
+        $db =- '';
 
         try {
             if (DBSYSTEM === 'postgres') {
@@ -106,7 +107,7 @@ class PoloAfricaWebsite implements Website
         );
 */
 
-        dump($pdo);
+        dump([$env, $db]);
         $this->pdo = $pdo;
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo->exec('SET NAMES "utf8"');
