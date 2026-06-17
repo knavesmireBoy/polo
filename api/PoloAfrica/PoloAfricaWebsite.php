@@ -33,9 +33,9 @@ class PoloAfricaWebsite implements Website
     }
     public function __construct(private $pp)
     {
-        $pwd = $_ENV['MYSQL_PASSWORD'];
-        $user = $_ENV['MYSQL_USER'];
-        $dbname = $_ENV['MYSQL_DATABASE'];
+       // $pwd = $_ENV['MYSQL_PASSWORD'];
+        //$user = $_ENV['MYSQL_USER'];
+        //$dbname = $_ENV['MYSQL_DATABASE'];
         //$host = $_ENV['MYSQL_DATABASE'];
         /*emoji
         CREATE DATABASE polafrica DEFAULT CHARSET = utf8mb4 DEFAULT COLLATE = utf8mb4_unicode_ci;
@@ -79,6 +79,10 @@ class PoloAfricaWebsite implements Website
                 $pdo->exec('SET search_path TO uploads');
                 // $pdo->exec('ALTER USER user SET search_path TO uploads');
             } else {
+
+                $dbname = 'polafrica';
+                $user = 'root';
+                $pwd = 'covid19krauq';
                 $pdo = new \PDO(
                     "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
                     $user,
