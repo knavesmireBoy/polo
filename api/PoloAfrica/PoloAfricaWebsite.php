@@ -51,7 +51,7 @@ class PoloAfricaWebsite implements Website
         $dbname = 'polafrica';
         $user = 'root';
         $pwd = 'covid19krauq';
-        $db =- '';
+        $db = '';
 
         try {
             if (DBSYSTEM === 'postgres') {
