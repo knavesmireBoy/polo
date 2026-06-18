@@ -4,8 +4,8 @@ namespace PoloAfrica\Controllers;
 
 use \Ninja\DatabaseTable;
 
-include_once '../config.php';
-include_once FUNCTIONS;
+//include_once '../config.php';
+//include_once FUNCTIONS;
 
 class User
 {

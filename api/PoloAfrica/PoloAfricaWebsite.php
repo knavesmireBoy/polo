@@ -1,8 +1,7 @@
 <?php
 
 namespace PoloAfrica;
-require_once 'config.php';
-
+//require_once 'config.php';
 
 use \Ninja\Website;
 use \Ninja\DatabaseTable;
@@ -65,7 +64,6 @@ class PoloAfricaWebsite implements Website
                 // dump([$pwd, $connect]);
                 $pwd = 'npg_8dHPhSB4amLF';
                 $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
-
 
                 if (!$pwd) {
                     throw new \Exception('Unable to connect to the database server');

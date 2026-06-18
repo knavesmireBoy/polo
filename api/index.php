@@ -3,9 +3,6 @@ require_once 'config.php';
 include_once FUNCTIONS;
 
 
-phpinfo();
-exit;
-
 $layout = 'pagelayout.html.php';
 $route = fixUri();
 $uri = empty($route) ? '' : implode('/', $route);

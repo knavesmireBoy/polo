@@ -4,8 +4,8 @@ namespace Ninja\Composite;
 
 use \Ninja\Component;
 
-include_once 'config.php';
-include_once FUNCTIONS;
+//include_once 'config.php';
+//include_once FUNCTIONS;
 
 class Leaf implements Component
 {
