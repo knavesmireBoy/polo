@@ -2,8 +2,8 @@
 
 namespace Ninja;
 
-include_once 'config.php';
-include_once FUNCTIONS;
+//include_once 'config.php';
+//include_once FUNCTIONS;
 
 interface Component
 {
