@@ -2,7 +2,7 @@
 $d = $description ?? "Poloafrica brings you wonderful holidays on Uitgedacht Farm, set in the foothills of the spectacular Maluti mountains in the Eastern Free State of South Africa.";
 $c = $content ?? "Polo, South Africa, farm, guests, tournaments, hireling";
 $css =   "/polo/public/css/";
-$fav =  "/polo/public/assets/";
+$fav =  "/polo/public/images/favicon.ico";
 
 ?>
 
@@ -17,6 +17,7 @@ $fav =  "/polo/public/assets/";
   <meta content="<?= $c ?>" name="keywords">
   <link href="<?= $css . 'main.css' ?>" media="all" rel="stylesheet">
   <link href="<?= $css . 'print.css' ?>" media="print" rel="stylesheet" />
+  <link rel="shortcut icon" type="image/jpg" href="<?= $fav; ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
