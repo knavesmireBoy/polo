@@ -50,22 +50,22 @@ class PoloAfricaWebsite implements Website
         SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
         */
 
-        $dbname = 'polafrica';
+        $dbname = 'poloafrica';
         $user = 'root';
         $pwd = 'covid19krauq';
         $db = '';
 
+
         try {
             if (DBSYSTEM === 'postgres') {
-                $env = getenv();
-
-                
+                $env = getenv();                
                 preg_match('/[^:]+:\/\/[^:]+:([^@]+)@(.+)/', $env['DATABASE_URL'] ?? '', $matches);
                 $pwd = $matches[1] ?? null;
                 $connect = $matches[2] ?? null;
                 // dump([$pwd, $connect]);
-              //  $pwd = 'npg_8dHPhSB4amLF';
-              //  $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
+                $pwd = 'npg_8dHPhSB4amLF';
+                $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
+
 
                 if (!$pwd) {
                     throw new \Exception('Unable to connect to the database server');
@@ -73,7 +73,7 @@ class PoloAfricaWebsite implements Website
                 
                 //note cannot get postgres drivers to work in home environment
                 //$params = ['host' => '127.0.0.1', 'port' => 5432, 'database' => 'poloafrica', 'user' => 'andrewjsykes', 'password' => 'covid19krauq', 'sslmode' => 'require'];
-                $params = ['host' => $connect, 'port' => 5432, 'database' => 'poloafrica', 'user' => 'andrewjsykes', 'password' => $pwd, 'sslmode' => 'require'];
+                $params = ['host' => $connect, 'port' => 5432, 'database' =>  $dbname, 'user' => 'andrewjsykes', 'password' => $pwd, 'sslmode' => 'require'];
                 $db = sprintf(
                     "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
                     $params['host'],
@@ -86,7 +86,7 @@ class PoloAfricaWebsite implements Website
 
                 $this->pdo = new \PDO($db);
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                $this->pdo->exec('SET search_path TO poloafrica');
+                $this->pdo->exec("SET search_path TO  $dbname");
                 // $pdo->exec('ALTER USER user SET search_path TO uploads');
             } else {
 
@@ -96,14 +96,14 @@ class PoloAfricaWebsite implements Website
                     $pwd
                 );
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                $this->pdo->exec('SET search_path TO polafrica');
+                $this->pdo->exec('SET search_path TO poloafrica');
                 //$pdo->exec('SET NAMES "utf8"');
             }
         } catch (\PDOException $e) {
             $output = 'Unable to connect to the database server: ' . $e->getMessage();
             $error = $output;
             // include TEMPLATE . 'output.html.php';
-            exit();
+            exit($error);
         }
 
 
