@@ -64,6 +64,8 @@ class PoloAfricaWebsite implements Website
                 $pwd = $matches[1] ?? null;
                 $connect = $matches[2] ?? null;
                 // dump([$pwd, $connect]);
+              //  $pwd = 'npg_8dHPhSB4amLF';
+              //  $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
 
                 if (!$pwd) {
                     throw new \Exception('Unable to connect to the database server');
@@ -71,7 +73,7 @@ class PoloAfricaWebsite implements Website
                 
                 //note cannot get postgres drivers to work in home environment
                 //$params = ['host' => '127.0.0.1', 'port' => 5432, 'database' => 'poloafrica', 'user' => 'andrewjsykes', 'password' => 'covid19krauq', 'sslmode' => 'require'];
-                $params = ['host' => $connect, 'port' => 5432, 'database' => 'poloafrica', 'user' => 'neondb_owner', 'password' => $pwd, 'sslmode' => 'require'];
+                $params = ['host' => $connect, 'port' => 5432, 'database' => 'poloafrica', 'user' => 'andrewjsykes', 'password' => $pwd, 'sslmode' => 'require'];
                 $db = sprintf(
                     "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
                     $params['host'],

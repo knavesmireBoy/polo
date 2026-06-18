@@ -25,14 +25,14 @@ define("PAGES", 'pages/');
 define("WEBSITES", '../../');
 define("FILESTORE_DIR", '../../filestore/');
 
-define("CSS", './public/resources/css/');
-define("JS", '../public/resources/js/');
-define("ASSETS", '../public/resources/assets/');
+define("CSS", './public/css/');
+define("JS", '../public/js/');
+define("ASSETS", '../public/assets/');
 define("RESOURCES", '../public/resources/');
 define("PDF_FILE", '../public/resources/images/dev/pdf_sq.png');
 
-define("IMAGES", '../public/resources/images/articles/');
-define("DEV", '../public/resources/images/dev/');
+define("IMAGES", '../public/images/articles/');
+define("DEV", '../public/images/dev/');
 
 define("FILENOTFOUND", '../public/resources/images/dev/lost.png');
 define("VIDEO_MEDLEY", '../public/resources/video/medley/');

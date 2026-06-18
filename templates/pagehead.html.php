@@ -1,7 +1,7 @@
 <?php
 $d = $description ?? "Poloafrica brings you wonderful holidays on Uitgedacht Farm, set in the foothills of the spectacular Maluti mountains in the Eastern Free State of South Africa.";
 $c = $content ?? "Polo, South Africa, farm, guests, tournaments, hireling";
-$css =   "/polo/public/resources/css/";
+$css =   "/polo/public/css/";
 $fav =  "/polo/public/assets/";
 
 ?>
