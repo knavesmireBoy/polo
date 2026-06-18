@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/config.php';
+require_once 'config.php';
 include_once FUNCTIONS;
-//phpinfo();
-
+phpinfo();
+exit;
 $layout = 'pagelayout.html.php';
 $route = fixUri();
 $uri = empty($route) ? '' : implode('/', $route);
