@@ -4,6 +4,9 @@ $c = $content ?? "Polo, South Africa, farm, guests, tournaments, hireling";
 $css =   "/polo/public/css/";
 $fav =  "/polo/public/images/favicon.ico";
 
+$css =  "/css/";
+$fav =  "/assets/favicon.ico";
+
 ?>
 
 <!doctype html>
