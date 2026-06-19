@@ -49,7 +49,7 @@ class PoloAfricaWebsite implements Website
         SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
         */
 
-        $dbname = 'poloafrica';
+       
         $user = 'root';
         $pwd = 'covid19krauq';
         $db = '';
@@ -59,6 +59,7 @@ class PoloAfricaWebsite implements Website
                 preg_match('/[^:]+:\/\/[^:]+:([^@]+)@(.+)/', $env['DATABASE_URL'] ?? '', $matches);
                 $pwd = $matches[1] ?? null;
                 $connect = $matches[2] ?? null;
+                $dbname = 'poloafrica';
                 //$pwd = 'npg_8dHPhSB4amLF';
                 //$connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
 
@@ -80,10 +81,10 @@ class PoloAfricaWebsite implements Website
 
                 $this->pdo = new \PDO($db);
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                $this->pdo->exec("SET search_path TO  $dbname");
+                $this->pdo->exec("SET search_path TO poloafrica");
             } else {
                 $this->pdo = new \PDO(
-                    "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
+                    "mysql:host=localhost;dbname=poloafrica;charset=utf8mb4",
                     $user,
                     $pwd
                 );
@@ -99,12 +100,12 @@ class PoloAfricaWebsite implements Website
         }
         $this->userTable = new DatabaseTable($this->pdo, 'usr', 'id', '\PoloAfrica\Entity\User', [&$this->userTable]);
         $this->authentication = new Authentication($this->userTable, 'email', 'password');
-        $this->pagesTable = new DatabaseTable($this->pdo, 'pages', 'id', '\PoloAfrica\Entity\Page', [&$this->slotTable]);
         $this->slotTable = new DatabaseTable($this->pdo, $pp, 'id', '\PoloAfrica\Entity\Slot', [&$this->slotTable]);
         $this->assetTable = new DatabaseTable($this->pdo, 'assets', 'id', '\PoloAfrica\Entity\Asset', [&$this->assetTable, &$this->articleTable]);
         $this->articleTable = new DatabaseTable($this->pdo, 'articles', 'id', '\PoloAfrica\Entity\Article', [&$this->articleTable, $this->assetTable, $this->slotTable, 2]);
         $this->boxTable = new DatabaseTable($this->pdo, 'slot', 'id');
         $this->galleryTable = new DatabaseTable($this->pdo, 'gallery', 'id', '\PoloAfrica\Entity\Gallery', [$this->boxTable]);
+        $this->pagesTable = new DatabaseTable($this->pdo, 'pages', 'id', '\PoloAfrica\Entity\Page', [&$this->slotTable]);
         $this->pages = array_map(fn($o) => strtolower($o->name), $this->pagesTable->findAll());
     }
 
@@ -194,11 +195,7 @@ class PoloAfricaWebsite implements Website
     {
 
         $pagedata = $this->pagesTable->findAll(/*null, 0, 0, \PDO::FETCH_ASSOC*/);
-
-
-
         $pagedata = array_map('get_object_vars', $pagedata);
-
         $e = $this->pagesTable->getEntity();
         $e->setName('pp');
         $pagenames = array_map(fn($arr) => $arr['title'], $e->findAll('id', 0, 0, \PDO::FETCH_ASSOC));
