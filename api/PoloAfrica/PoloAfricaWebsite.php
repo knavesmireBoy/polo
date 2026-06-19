@@ -353,7 +353,7 @@ class PoloAfricaWebsite implements Website
     public function checkLogin(string $uri): array
     {
         
-        dump([ isDir('assets'), isDir('./assets')]);
+        dump(isDir('/assets'));
 
         $files = scandir(isDir(ASSETS));
         $fs = preg_grep("/^\w+\.w+$/", $files);
