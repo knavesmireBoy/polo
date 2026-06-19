@@ -53,23 +53,18 @@ class PoloAfricaWebsite implements Website
         $user = 'root';
         $pwd = 'covid19krauq';
         $db = '';
-
-
         try {
             if (DBSYSTEM === 'postgres') {
                 $env = getenv();
                 preg_match('/[^:]+:\/\/[^:]+:([^@]+)@(.+)/', $env['DATABASE_URL'] ?? '', $matches);
                 $pwd = $matches[1] ?? null;
                 $connect = $matches[2] ?? null;
-                //dump([$pwd, $connect]);
-                $pwd = 'npg_8dHPhSB4amLF';
-                $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
-
+                //$pwd = 'npg_8dHPhSB4amLF';
+                //$connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
 
                 if (!$pwd) {
                     throw new \Exception('Unable to connect to the database server');
                 }
-
                 //note cannot get postgres drivers to work in home environment
                 //$params = ['host' => '127.0.0.1', 'port' => 5432, 'database' => 'poloafrica', 'user' => 'andrewjsykes', 'password' => 'covid19krauq', 'sslmode' => 'require'];
                 $params = ['host' => $connect, 'port' => 5432, 'database' =>  $dbname, 'user' => 'andrewjsykes', 'password' => $pwd, 'sslmode' => 'require'];
@@ -86,9 +81,7 @@ class PoloAfricaWebsite implements Website
                 $this->pdo = new \PDO($db);
                 $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 $this->pdo->exec("SET search_path TO  $dbname");
-                // $pdo->exec('ALTER USER user SET search_path TO uploads');
             } else {
-
                 $this->pdo = new \PDO(
                     "mysql:host=localhost;dbname=$dbname;charset=utf8mb4",
                     $user,
@@ -104,13 +97,7 @@ class PoloAfricaWebsite implements Website
             // include TEMPLATE . 'output.html.php';
             exit($error);
         }
-
-
-
-        // $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        // $this->pdo->exec('SET NAMES "utf8"');
-
-        $this->userTable = new DatabaseTable($this->pdo, 'user', 'id', '\PoloAfrica\Entity\User', [&$this->userTable]);
+        $this->userTable = new DatabaseTable($this->pdo, 'usr', 'id', '\PoloAfrica\Entity\User', [&$this->userTable]);
         $this->authentication = new Authentication($this->userTable, 'email', 'password');
         $this->pagesTable = new DatabaseTable($this->pdo, 'pages', 'id', '\PoloAfrica\Entity\Page', [&$this->slotTable]);
         $this->slotTable = new DatabaseTable($this->pdo, $pp, 'id', '\PoloAfrica\Entity\Slot', [&$this->slotTable]);
@@ -119,6 +106,7 @@ class PoloAfricaWebsite implements Website
         $this->boxTable = new DatabaseTable($this->pdo, 'slot', 'id');
         $this->galleryTable = new DatabaseTable($this->pdo, 'gallery', 'id', '\PoloAfrica\Entity\Gallery', [$this->boxTable]);
         $this->pages = array_map(fn($o) => strtolower($o->name), $this->pagesTable->findAll());
+        dump($this->pages);
     }
 
 
@@ -205,6 +193,7 @@ class PoloAfricaWebsite implements Website
 
     public function setNavBar(): array
     {
+
         $pagedata = $this->pagesTable->findAll(null, 0, 0, \PDO::FETCH_ASSOC);
         $e = $this->pagesTable->getEntity();
         $e->setName('pp');
