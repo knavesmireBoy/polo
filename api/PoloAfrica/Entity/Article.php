@@ -7,7 +7,7 @@ use \Ninja\Composite\Leaf;
 class Article extends Leaf
 {
     public $id;
-    public $pubDate;
+    public $pubdate;
     public $title;
     public $summary;
     public $attr_id;
