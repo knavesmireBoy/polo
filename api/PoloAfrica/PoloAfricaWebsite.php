@@ -195,7 +195,9 @@ class PoloAfricaWebsite implements Website
 
         $pagedata = $this->pagesTable->findAll(/*null, 0, 0, \PDO::FETCH_ASSOC*/);
 
-        dump($pagedata);
+
+
+        $pagedata = array_map('get_object_vars', $pagedata);
 
         $e = $this->pagesTable->getEntity();
         $e->setName('pp');
