@@ -106,7 +106,6 @@ class PoloAfricaWebsite implements Website
         $this->boxTable = new DatabaseTable($this->pdo, 'slot', 'id');
         $this->galleryTable = new DatabaseTable($this->pdo, 'gallery', 'id', '\PoloAfrica\Entity\Gallery', [$this->boxTable]);
         $this->pages = array_map(fn($o) => strtolower($o->name), $this->pagesTable->findAll());
-        dump($this->pages);
     }
 
 
@@ -195,6 +194,9 @@ class PoloAfricaWebsite implements Website
     {
 
         $pagedata = $this->pagesTable->findAll(null, 0, 0, \PDO::FETCH_ASSOC);
+
+        dump($pagedata);
+
         $e = $this->pagesTable->getEntity();
         $e->setName('pp');
         $pagenames = array_map(fn($arr) => $arr['title'], $e->findAll('id', 0, 0, \PDO::FETCH_ASSOC));
