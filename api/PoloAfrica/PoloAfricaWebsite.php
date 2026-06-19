@@ -57,19 +57,19 @@ class PoloAfricaWebsite implements Website
 
         try {
             if (DBSYSTEM === 'postgres') {
-                $env = getenv();                
+                $env = getenv();
                 preg_match('/[^:]+:\/\/[^:]+:([^@]+)@(.+)/', $env['DATABASE_URL'] ?? '', $matches);
                 $pwd = $matches[1] ?? null;
                 $connect = $matches[2] ?? null;
-                // dump([$pwd, $connect]);
-             //   $pwd = 'npg_8dHPhSB4amLF';
-               // $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
+                //dump([$pwd, $connect]);
+                $pwd = 'npg_8dHPhSB4amLF';
+                $connect = 'ep-nameless-voice-abdpk89h-pooler.eu-west-2.aws.neon.tech';
 
 
                 if (!$pwd) {
                     throw new \Exception('Unable to connect to the database server');
                 }
-                
+
                 //note cannot get postgres drivers to work in home environment
                 //$params = ['host' => '127.0.0.1', 'port' => 5432, 'database' => 'poloafrica', 'user' => 'andrewjsykes', 'password' => 'covid19krauq', 'sslmode' => 'require'];
                 $params = ['host' => $connect, 'port' => 5432, 'database' =>  $dbname, 'user' => 'andrewjsykes', 'password' => $pwd, 'sslmode' => 'require'];
@@ -352,12 +352,14 @@ class PoloAfricaWebsite implements Website
 
     public function checkLogin(string $uri): array
     {
+        
+        dump([is_dir(A1), is_dir(A2),is_dir(A3), __DIR__]);
         $files = scandir(isDir(ASSETS));
         $fs = preg_grep("/^\w+\.w+$/", $files);
         $dirs = arrayDiff($files, $fs);
         $dirs = array_values(preg_grep("/^[^\.]/", $dirs));
 
-       // dump(tsb(2400, 14250, 9, .2));
+        // dump(tsb(2400, 14250, 9, .2));
 
         function foo($root, &$ret)
         {

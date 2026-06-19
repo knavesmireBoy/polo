@@ -8,8 +8,6 @@ ini_set('post_max_size', '125M');
 ini_set('pcre.jit', false);
 date_default_timezone_set( "Europe/London" );
 
-
-
 define("DBSYSTEM", 'postgres');
 
 define("NINJA", 'Ninja/');
@@ -28,6 +26,12 @@ define("FILESTORE_DIR", '../../filestore/');
 define("CSS", './public/css/');
 define("JS", '../public/js/');
 define("ASSETS", '../public/assets/');
+
+
+define("A1", __DIR__ . './public/assets/');
+define("A2", __DIR__ . 'public/assets/');
+define("A3", __DIR__ . '../public/assets/');
+
 define("RESOURCES", '../public/resources/');
 define("PDF_FILE", '../public/resources/images/dev/pdf_sq.png');
 
