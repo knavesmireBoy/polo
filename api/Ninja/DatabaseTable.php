@@ -117,14 +117,7 @@ class DatabaseTable
     }
     public function findAll(?string $orderBy = null, int $limit = 0, int $offset = 0, $mode = \PDO::FETCH_CLASS)
     {
-        $query = 'SELECT * FROM ' . $this->table;
-
-        /*
-        if ($this->table === 'usr') {
-            $query = 'SELECT * FROM ';
-            $query .= orderByLastName2($this->table, DBSYSTEM);
-        }
-            */
+        $query = 'SELECT * FROM "' . $this->table. '"';
 
 
         if ($orderBy) {
