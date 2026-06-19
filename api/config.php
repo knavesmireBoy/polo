@@ -18,7 +18,8 @@ define("INCLUDES", 'includes/');
 define("MARKDOWN", 'Ninja/Markdown');
 define("MICHELF", '../Michelf/MarkdownExtra.php');
 
-define("TEMPLATE", '../templates/');
+//define("TEMPLATE", '../templates/');
+define("TEMPLATE", __DIR__ . '../../templates/');
 define("PAGES", 'pages/');
 define("WEBSITES", '../../');
 define("FILESTORE_DIR", '../../filestore/');
