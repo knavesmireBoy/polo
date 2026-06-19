@@ -354,12 +354,11 @@ class PoloAfricaWebsite implements Website
     {
         
         dump([is_dir(A1), is_dir(A2),is_dir(A3), __DIR__]);
+        
         $files = scandir(isDir(ASSETS));
         $fs = preg_grep("/^\w+\.w+$/", $files);
         $dirs = arrayDiff($files, $fs);
         $dirs = array_values(preg_grep("/^[^\.]/", $dirs));
-
-        // dump(tsb(2400, 14250, 9, .2));
 
         function foo($root, &$ret)
         {
