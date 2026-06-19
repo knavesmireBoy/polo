@@ -117,9 +117,9 @@ class DatabaseTable
     }
     public function findAll(?string $orderBy = null, int $limit = 0, int $offset = 0, $mode = \PDO::FETCH_CLASS)
     {
-        $query = 'SELECT * FROM "' . $this->table. '"';
+        $query = 'SELECT * FROM "' . $this->table . '"';
 
-
+        dump($query);
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy;
         } else {
@@ -172,7 +172,7 @@ class DatabaseTable
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . $op;
         $parameters = [];
-       // $value = $value ? $value : 1;
+        // $value = $value ? $value : 1;
         if (!is_null($value)) {
             $parameters = [
                 'value' => $value
