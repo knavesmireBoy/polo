@@ -348,7 +348,7 @@
 
 #edit_article {
   form {
-    #pubDate,
+    #pubdate,
     #attr_id {
       grid-column: span 7;
     }
@@ -398,7 +398,7 @@
         grid-column: span 16;
       }
 
-      #pubDate {
+      #pubdate {
         line-height: 1;
         grid-column: span 15;
       }
@@ -655,7 +655,7 @@ ul#gal_edit {
     #edit_article {
       form {
         fieldset {
-          #pubDate,
+          #pubdate,
           #attr_id {
             grid-column: span 7;
           }
@@ -757,7 +757,7 @@ ul#gal_edit {
         #page {
           grid-column: span 7;
         }
-        #pubDate,
+        #pubdate,
         #attr_id {
           grid-column: span 3;
         }

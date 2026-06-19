@@ -567,7 +567,7 @@ class Article
                 'perform' => $alt ? 'destroy' : 'delete',
                 'minmax' => $this->minmax,
                 'page' => isset($pp[0]) ? $pp[0]['id'] : 0,
-                'select' => ['target' => null, 'identity' => 'pp', 'optval' => 'page', 'options' => $alt ? [] : $pp, 'default' => 'pubDate']
+                'select' => ['target' => null, 'identity' => 'pp', 'optval' => 'page', 'options' => $alt ? [] : $pp, 'default' => 'pubdate']
             ]
         ];
     }
@@ -1122,7 +1122,7 @@ class Article
         //internal use only for the moment
         $summary = $entity ? $entity->summary : $_POST['summary'];
         $attr = preg_replace('/\s/', '&nbsp;', $_POST['attr_id']);
-        $payload = ['id' => $id, 'title' => $_POST['title'], 'pubDate' => $date, 'page' => $_POST['page'], 'summary' => $summary, 'content' => $_POST['content'], 'attr_id' => $attr];
+        $payload = ['id' => $id, 'title' => $_POST['title'], 'pubdate' => $date, 'page' => $_POST['page'], 'summary' => $summary, 'content' => $_POST['content'], 'attr_id' => $attr];
         $hardcoded = findMatch('/\w+\.html\.php/', $_POST['content'], 0);
         //bypass validation for hardcoded articles (currently only the contact form)
         if ($hardcoded) {
@@ -1268,9 +1268,9 @@ class Article
         $unset('js');
         $setcookie = doSetCookie(true);
         $alt = is_numeric($folio) && intval($folio) < 0;
-        if (!$alt && isset($_POST['pp']) && $_POST['pp'] === 'pubDate') {
-            $by = 'pubDate';
-            $setcookie('date', 'pubDate', time() + 10);
+        if (!$alt && isset($_POST['pp']) && $_POST['pp'] === 'pubdate') {
+            $by = 'pubdate';
+            $setcookie('date', 'pubdate', time() + 10);
         }
         $by = $_COOKIE['date'] ?? 'title';
         $pp = $_COOKIE['page'] ?? '';
@@ -1301,7 +1301,7 @@ class Article
         $range = $this->validateFolio();
 
         if (!empty($_POST['pp']) || !empty($pp)) {
-            $pubdate = $_POST['pp'] !== 'pubDate';
+            $pubdate = $_POST['pp'] !== 'pubdate';
             //let's not bother to paginate a page view
             $max = $this->maxArticleByPage('page', 'id', \PDO::FETCH_NUM);
             $this->setInc($max);

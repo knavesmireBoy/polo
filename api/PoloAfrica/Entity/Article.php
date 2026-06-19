@@ -7,13 +7,13 @@ use \Ninja\Composite\Leaf;
 class Article extends Leaf
 {
     public $id;
-    public $pubdate;
     public $title;
     public $summary;
     public $attr_id;
     public $page;
     public $content;
     public $mdcontent;
+    public $pubdate;
     public $assets = [];
 
     private $image = array(

@@ -104,7 +104,7 @@ class Asset
         NOTE USING | instead of / as delimiter to avoid confusion*/
         $str = preg_replace('|(?<!\/)resources\/assets|', '/resources/assets', $str);
         $id = $id ? $id : $aId;
-        $values = ['id' => $id, 'content' => trim($str), 'pubDate' => date('Y-m-d')];
+        $values = ['id' => $id, 'content' => trim($str), 'pubdate' => date('Y-m-d')];
         if ($id) {
           $this->persist($values);
         }

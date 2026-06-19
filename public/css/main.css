@@ -4150,7 +4150,7 @@ ul.gallery {
         padding: 0.5em;
         background-color: rgba(205, 232, 248, 0.2);
         border-radius: 4px; }
-      #admin main #edit_article form fieldset #pubDate {
+      #admin main #edit_article form fieldset #pubdate {
         line-height: 1;
         grid-column: span 15; }
       #admin main #edit_article form fieldset #attr_id,
@@ -4226,7 +4226,7 @@ ul.gallery {
     background-color: rgba(248, 205, 212, 0.2); }
 
 @media only screen and (min-width: 480px) {
-  #admin main #edit_article form fieldset #pubDate,
+  #admin main #edit_article form fieldset #pubdate,
   #admin main #edit_article form fieldset #attr_id {
     grid-column: span 7; } }
 @media only screen and (min-width: 668px) {
@@ -4235,7 +4235,7 @@ ul.gallery {
     #admin main #edit_article form fieldset #title,
     #admin main #edit_article form fieldset #page {
       grid-column: span 7; }
-    #admin main #edit_article form fieldset #pubDate,
+    #admin main #edit_article form fieldset #pubdate,
     #admin main #edit_article form fieldset #attr_id {
       grid-column: span 3; }
     #admin main #edit_article form fieldset div#order {

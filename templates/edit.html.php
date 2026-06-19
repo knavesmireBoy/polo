@@ -36,8 +36,8 @@
                 <?php  }
                 ?>
             </div>
-            <label for="pubDate">published</label>
-            <input type="date" name="pubDate" id="pubDate" placeholder="YYYY-MM-DD" required maxlength="10" value="<?= $article->pubDate ?? $_date ?>">
+            <label for="pubdate">published</label>
+            <input type="date" name="pubdate" id="pubdate" placeholder="YYYY-MM-DD" required maxlength="10" value="<?= $article->pubdate ?? $_date ?>">
             <label for="attr_id">meta_data</label>
             <input name="attr_id" id="attr_id" maxlength="30" value="<?= $article->attr_id ?? '' ?>" pattern="[a-z.]+">
             <label for="summary">summary</label>
