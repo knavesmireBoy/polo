@@ -2,7 +2,7 @@
 
 namespace PoloAfrica\Controllers;
 
-include_once 'config.php';
+//include_once 'config.php';
 
 use \Ninja\DatabaseTable;
 use \Ninja\Strategy\Checker;
