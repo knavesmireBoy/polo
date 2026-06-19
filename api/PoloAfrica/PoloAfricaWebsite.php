@@ -193,7 +193,7 @@ class PoloAfricaWebsite implements Website
     public function setNavBar(): array
     {
 
-        $pagedata = $this->pagesTable->findAll(null, 0, 0, \PDO::FETCH_ASSOC);
+        $pagedata = $this->pagesTable->findAll(/*null, 0, 0, \PDO::FETCH_ASSOC*/);
 
         dump($pagedata);
 
