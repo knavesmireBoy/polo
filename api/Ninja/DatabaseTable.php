@@ -118,8 +118,7 @@ class DatabaseTable
     public function findAll(?string $orderBy = null, int $limit = 0, int $offset = 0, $mode = \PDO::FETCH_CLASS)
     {
         
-        $this->pdo->exec('SET search_path TO poloafrica');
-        $query = 'SELECT * FROM "' . $this->table . '"';
+        $query = 'SELECT * FROM ' . $this->table;
 
         if ($orderBy) {
             $query .= ' ORDER BY ' . $orderBy;

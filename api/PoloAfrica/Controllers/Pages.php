@@ -203,7 +203,6 @@ class Pages extends Composite
         $items = [];
         $last = null;
 
-
         foreach ($all as $item) {
             if ($item) {
                 $last = $this->fetch($table, $k, $item->title);

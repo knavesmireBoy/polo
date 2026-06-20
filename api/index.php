@@ -2,7 +2,6 @@
 require_once 'config.php';
 include_once FUNCTIONS;
 
-
 $layout = 'pagelayout.html.php';
 $route = fixUri();
 $uri = empty($route) ? '' : implode('/', $route);
@@ -12,7 +11,6 @@ $posts = ['assign', 'create', 'contact', 'edit', 'login', 'manage', 'permissions
 $pp = $pages[$route[0]] ?? '';
 
 $website = new \PoloAfrica\PoloAfricaWebsite($pp);
-
 
 $entryPoint = new \Ninja\EntryPoint($website, $posts);
 $layoutVariables = $entryPoint->run($uri, $_SERVER['REQUEST_METHOD'], 'public', $home);
