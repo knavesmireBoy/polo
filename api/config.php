@@ -26,18 +26,13 @@ define("FILESTORE_DIR", '../../filestore/');
 
 define("CSS", './public/css/');
 define("JS", '../public/js/');
-define("ASSETS", '../public/assets/');
-
-
-define("A1", __DIR__ . './public/assets/');
-define("A2", __DIR__ . 'public/assets/');
-define("A3", __DIR__ . '../public/assets/');
+define("ASSETS", __DIR__ . '../../public/assets/');
 
 define("RESOURCES", '../public/resources/');
 define("PDF_FILE", '../public/resources/images/dev/pdf_sq.png');
 
-define("IMAGES", '../public/images/articles/');
-define("DEV", '../public/images/dev/');
+define("IMAGES", __DIR__ . '../../public/images/articles/');
+define("DEV", __DIR__ . '../../public/images/dev/');
 
 define("FILENOTFOUND", '../public/resources/images/dev/lost.png');
 define("VIDEO_MEDLEY", '../public/resources/video/medley/');
